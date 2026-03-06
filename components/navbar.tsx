@@ -165,12 +165,12 @@ export function Navbar() {
       <div
         id="mobile-menu"
         className="md:hidden overflow-hidden transition-all duration-300 ease-in-out"
+        aria-hidden={!mobileOpen}
         style={{
           maxHeight: mobileOpen ? "400px" : "0px",
           opacity: mobileOpen ? 1 : 0,
           visibility: mobileOpen ? "visible" : "hidden",
         }}
-        aria-hidden={!mobileOpen}
       >
         <div className="bg-background/95 backdrop-blur-xl border-b border-border shadow-lg">
           <div className="flex flex-col p-4 gap-1">
