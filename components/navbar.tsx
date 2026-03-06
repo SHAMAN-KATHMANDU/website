@@ -98,8 +98,19 @@ export function Navbar() {
           })}
         </div>
 
-        {/* CTA button — spring hover */}
+        {/* CTA buttons — spring hover */}
         <div className="hidden md:flex items-center gap-3">
+          <motion.a
+            href="https://app.shamanyantra.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.03, y: -1, transition: HOVER_SPRING }}
+            whileTap={{ scale: 0.97 }}
+            style={{ willChange: "transform" }}
+            className="inline-flex items-center gap-2 text-sm font-medium px-5 py-2.5 rounded-lg border border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          >
+            Go to App
+          </motion.a>
           <motion.div
             whileHover={{ scale: 1.03, y: -1, transition: HOVER_SPRING }}
             whileTap={{ scale: 0.97 }}
@@ -178,6 +189,15 @@ export function Navbar() {
               </Link>
             ))}
             <div className="border-t border-border mt-2 pt-3 flex flex-col gap-2">
+              <a
+                href="https://app.shamanyantra.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                tabIndex={mobileOpen ? 0 : -1}
+                className="inline-flex items-center justify-center gap-2 text-sm font-medium py-3 px-4 rounded-lg border border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              >
+                Go to App
+              </a>
               <Link
                 href="/pricing"
                 tabIndex={mobileOpen ? 0 : -1}
