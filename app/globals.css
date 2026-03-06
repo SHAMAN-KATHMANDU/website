@@ -1,0 +1,358 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: #ffffff;
+  --foreground: #0B1628;
+  --card: #ffffff;
+  --card-foreground: #0B1628;
+  --popover: #ffffff;
+  --popover-foreground: #0B1628;
+  --primary: #10B981;
+  --primary-foreground: #ffffff;
+  --secondary: #F0FDF4;
+  --secondary-foreground: #0B1628;
+  --muted: #F8FAFC;
+  --muted-foreground: #64748B;
+  --accent: #0D9668;
+  --accent-foreground: #ffffff;
+  --destructive: #EF4444;
+  --destructive-foreground: #ffffff;
+  --border: #E2E8F0;
+  --input: #E2E8F0;
+  --ring: #10B981;
+  --chart-1: #10B981;
+  --chart-2: #0D9668;
+  --chart-3: #065F46;
+  --chart-4: #34D399;
+  --chart-5: #6EE7B7;
+  --radius: 0.75rem;
+  --navy: #0B1628;
+  --navy-light: #0F2035;
+  --navy-medium: #162D4A;
+  --emerald: #10B981;
+  --emerald-light: #34D399;
+  --emerald-dark: #065F46;
+  --light-gray: #F8FAFC;
+  --medium-gray: #E2E8F0;
+  --warm-white: #FAFBFC;
+}
+
+/* Dark mode token overrides — activate by adding .dark to <html> */
+.dark {
+  --background: #0B1628;
+  --foreground: #F1F5F9;
+  --card: #0F2035;
+  --card-foreground: #F1F5F9;
+  --popover: #0F2035;
+  --popover-foreground: #F1F5F9;
+  --primary: #34D399;
+  --primary-foreground: #0B1628;
+  --secondary: #0D2A1A;
+  --secondary-foreground: #F1F5F9;
+  --muted: #162D4A;
+  --muted-foreground: #94A3B8;
+  --accent: #10B981;
+  --accent-foreground: #ffffff;
+  --destructive: #F87171;
+  --destructive-foreground: #ffffff;
+  --border: #1E3A5F;
+  --input: #1E3A5F;
+  --ring: #34D399;
+  --light-gray: #0F2035;
+  --medium-gray: #1E3A5F;
+  --warm-white: #0B1628;
+}
+
+@theme inline {
+  --font-sans: 'Inter', 'Geist', sans-serif;
+  --font-serif: 'DM Serif Display', 'Georgia', serif;
+  --font-mono: 'JetBrains Mono', 'Geist Mono', monospace;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-navy: var(--navy);
+  --color-navy-light: var(--navy-light);
+  --color-navy-medium: var(--navy-medium);
+  --color-emerald: var(--emerald);
+  --color-emerald-light: var(--emerald-light);
+  --color-emerald-dark: var(--emerald-dark);
+  --color-light-gray: var(--light-gray);
+  --color-medium-gray: var(--medium-gray);
+  --color-warm-white: var(--warm-white);
+}
+
+/* Animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes softPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes drawUnderline {
+  from { stroke-dashoffset: 200; }
+  to { stroke-dashoffset: 0; }
+}
+@keyframes cardEntrance {
+  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    @apply border-border;
+  }
+  /* Scope outline to keyboard focus only — avoids visual noise on click */
+  :focus-visible {
+    @apply outline-ring/50 outline-2 outline-offset-2;
+  }
+  html {
+    /* scroll-behavior: smooth removed — conflicts with JS-controlled horizontal deck scrollTo() */
+    scrollbar-gutter: stable;
+  }
+  body {
+    @apply bg-background text-foreground;
+    overflow-x: hidden;
+  }
+  ::selection {
+    background: rgba(16, 185, 129, 0.15);
+    color: #0B1628;
+  }
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--light-gray);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #94A3B8;
+  }
+}
+
+/* ─── Utility Classes ─────────────────────────────────────────────────────── */
+
+/* Gradient text — brand emerald gradient for headings */
+.gradient-text {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--emerald-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Card hover — consistent lift + shadow for interactive cards */
+.card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+
+/* Hide scrollbar utility */
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* ─── Horizontal Deck Layout ──────────────────────────────────────────────── */
+
+/* Outer scroll container — full-viewport flex row with CSS scroll-snap */
+.horizontal-deck {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  /* scroll-behavior is set via JS scrollTo({ behavior }) — not here, to avoid conflicts */
+  -webkit-overflow-scrolling: touch;
+  /* Hide the horizontal scrollbar across all browsers */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  /* GPU layer promotion for the scroll container */
+  will-change: scroll-position;
+}
+.horizontal-deck::-webkit-scrollbar {
+  display: none;
+}
+
+/* Each card — 100vw × 100vh, snaps to start, allows inner vertical scroll */
+.horizontal-card {
+  flex-shrink: 0;
+  width: 100vw;
+  min-height: 100vh;
+  /* Use dvh on mobile to account for browser chrome (address bar) */
+  min-height: 100dvh;
+  scroll-snap-align: start;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  /* Contain overscroll so inner vertical scroll never bleeds into horizontal deck */
+  overscroll-behavior: contain auto;
+  /* GPU layer hint — card shell stays on compositor, no layout thrashing */
+  will-change: transform, opacity;
+}
+
+/* Horizontal deck also uses dvh for correct full-screen on mobile */
+@media (max-width: 767px) {
+  .horizontal-deck {
+    height: 100dvh;
+  }
+}
+
+/* Shimmer skeleton animation — used by loading.tsx files */
+.shimmer-block {
+  background: linear-gradient(
+    90deg,
+    var(--medium-gray) 25%,
+    #eef2f7 50%,
+    var(--medium-gray) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+}
+
+/* ─── End Horizontal Deck Layout ──────────────────────────────────────────── */
+
+/* ─── Team Infinite Marquee ──────────────────────────────────────────────── */
+
+@keyframes team-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* Outer mask — fades edges so the loop feels seamless */
+.team-marquee-outer {
+  overflow-x: clip;
+  overflow-y: visible;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  /* Extra vertical padding so lifted cards aren't clipped by the mask */
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+/* Inner track — doubled content, animates left */
+.team-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: team-scroll 36s linear infinite;
+  will-change: transform;
+}
+
+/* Pause on hover or when user prefers reduced motion */
+.team-marquee-outer:hover .team-marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .team-marquee-track {
+    animation: none !important;
+  }
+}
+
+/* ─── End Team Infinite Marquee ──────────────────────────────────────────── */
+
+/* Minimal background grid — applied to sections so it shows through transparent areas */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgba(226, 232, 240, 0.6) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(226, 232, 240, 0.6) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* Respect user's reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  /* Pause marquee scroll */
+  [style*="animation: marquee"] {
+    animation-play-state: paused !important;
+  }
+  /* Disable smooth scroll-snap on horizontal deck — instant jumps instead */
+  .horizontal-deck {
+    scroll-behavior: auto !important;
+  }
+  /* Disable shimmer animation on skeletons */
+  .shimmer-block {
+    animation: none !important;
+    background: var(--medium-gray) !important;
+  }
+}
