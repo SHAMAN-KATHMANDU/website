@@ -132,7 +132,7 @@ function TeamCard({ member }: { member: (typeof TEAM)[0] }) {
     >
       <div
         className="bg-background rounded-2xl border border-border overflow-hidden shadow-sm relative"
-        style={{ boxShadow: "0 2px 8px rgba(0,0,0,0.04)" }}
+        style={{ boxShadow: "0 4px 12px rgba(0,0,0,0.05)" }}
       >
         {/* Portrait — fixed height so overlay has a clear target */}
         <div className="relative overflow-hidden bg-secondary" style={{ height: 260 }}>

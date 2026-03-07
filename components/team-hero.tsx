@@ -121,12 +121,12 @@ export function TeamHero() {
             Meet the team
             <ArrowRight className="w-4 h-4" />
           </a>
-          <a
-            href="mailto:info@shamanyantra.com"
+          <Link
+            href="/contact"
             className="inline-flex items-center justify-center gap-2 text-base font-medium px-7 py-3.5 rounded-lg border border-border text-foreground hover:bg-muted transition-all duration-200 w-full sm:w-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
           >
             Contact support
-          </a>
+          </Link>
         </div>
 
         {/* Trust note */}

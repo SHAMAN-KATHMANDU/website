@@ -1,72 +1,10 @@
 "use client"
 
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import { ArrowRight, TrendingUp, ShoppingCart, Users } from "lucide-react"
 import { GradientOrb, DotGrid, RingDecoration, CrossGrid, FloatingParticles, DemoImage, MeshGrid, HexGrid } from "./abstract-elements"
-import { useMotionValue, useSpring, useTransform, motion } from "framer-motion"
-
-function AnimatedCounter({ target, suffix = "" }: { target: string; suffix?: string }) {
-  const [visible, setVisible] = useState(false)
-  const ref = useRef<HTMLSpanElement>(null)
-
-  const numericMatch = target.match(/^(\d+(?:\.\d+)?)/)
-  const numericValue = numericMatch ? parseFloat(numericMatch[1]) : null
-  const prefix = target.replace(/[\d.]+.*/, "")
-  const textSuffix = numericValue !== null ? target.replace(/^[\d.]+/, "") : ""
-
-  const motionValue = useMotionValue(0)
-  const springValue = useSpring(motionValue, { stiffness: 60, damping: 18 })
-  const displayValue = useTransform(springValue, (v) => {
-    if (numericValue === null) return target
-    const formatted = Number.isInteger(numericValue) ? Math.round(v).toString() : v.toFixed(1)
-    return `${prefix}${formatted}${textSuffix}${suffix}`
-  })
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const obs = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) {
-        setVisible(true)
-        if (numericValue !== null) motionValue.set(numericValue)
-        obs.unobserve(el)
-      }
-    }, { threshold: 0.5 })
-    obs.observe(el)
-    return () => obs.disconnect()
-  }, [motionValue, numericValue])
-
-  if (numericValue !== null) {
-    return (
-      <motion.span
-        ref={ref as React.RefObject<HTMLSpanElement>}
-        className="inline-block"
-        style={{
-          opacity: visible ? 1 : 0,
-          transform: visible ? "translateY(0)" : "translateY(10px)",
-          transition: "opacity 0.4s ease, transform 0.4s ease",
-        }}
-      >
-        {displayValue}
-      </motion.span>
-    )
-  }
-
-  return (
-    <span
-      ref={ref}
-      className="inline-block"
-      style={{
-        opacity: visible ? 1 : 0,
-        transform: visible ? "translateY(0)" : "translateY(10px)",
-        transition: "all 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
-      }}
-    >
-      {target}{suffix}
-    </span>
-  )
-}
+import { motion } from "framer-motion"
 
 function FloatingCard({ children, className, delay }: { children: React.ReactNode; className?: string; delay: number }) {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
@@ -98,7 +36,7 @@ export function Hero() {
   useEffect(() => { setMounted(true) }, [])
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-background bg-grid">
+    <section className="relative h-full min-h-0 flex flex-col justify-center overflow-hidden bg-background bg-grid">
       {/* Abstract background elements */}
       <GradientOrb className="top-[-200px] right-[-100px]" color="rgba(16, 185, 129, 0.08)" size={800} />
       <GradientOrb className="bottom-[-300px] left-[-200px]" color="rgba(16, 185, 129, 0.05)" size={600} />
@@ -109,7 +47,7 @@ export function Hero() {
       <HexGrid className="bottom-20 right-20 opacity-50" />
       <FloatingParticles className="z-0" />
 
-      <div className="max-w-7xl mx-auto w-full px-6 lg:px-8 pt-28 pb-20 lg:pt-32 lg:pb-16 relative z-10">
+      <div className="max-w-7xl mx-auto w-full px-6 lg:px-8 py-16 lg:py-20 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left content */}
           <div className="relative z-10">
@@ -277,29 +215,6 @@ export function Hero() {
             </FloatingCard>
 
           </div>
-        </div>
-
-        {/* Stats row */}
-        <div
-          className="grid grid-cols-3 gap-6 sm:gap-8 max-w-2xl mt-16 lg:mt-28 pt-10 border-t border-border"
-          style={{
-            opacity: mounted ? 1 : 0,
-            transform: mounted ? "translateY(0)" : "translateY(20px)",
-            transition: "all 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.6s",
-          }}
-        >
-          {[
-            { value: "3-in-1", label: "Unified platform" },
-            { value: "5 min", label: "Setup time" },
-            { value: "14 days", label: "Free trial" },
-          ].map((stat) => (
-            <div key={stat.label}>
-              <div className="text-2xl sm:text-3xl lg:text-4xl font-serif text-foreground leading-none mb-2">
-                <AnimatedCounter target={stat.value} />
-              </div>
-              <p className="text-sm text-muted-foreground">{stat.label}</p>
-            </div>
-          ))}
         </div>
       </div>
     </section>

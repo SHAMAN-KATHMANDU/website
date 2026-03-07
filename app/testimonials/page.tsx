@@ -141,8 +141,14 @@ export default function TestimonialsPage() {
             <motion.div
               key={s.label}
               variants={statsItem}
-              whileHover={{ scale: 1.04, y: -3, transition: HOVER_SPRING }}
-              className="bg-light-gray rounded-2xl p-5 sm:p-6 lg:p-8 text-center border border-border"
+              whileHover={{
+                scale: 1.04,
+                y: -4,
+                boxShadow: "0 16px 32px rgba(0,0,0,0.06)",
+                borderColor: "rgba(16,185,129,0.2)",
+                transition: HOVER_SPRING,
+              }}
+              className="bg-background rounded-2xl p-5 sm:p-6 lg:p-8 text-center border border-border shadow-sm"
             >
               <span className="block font-serif text-2xl sm:text-3xl lg:text-4xl text-foreground leading-none mb-2">
                 {s.value}
@@ -232,14 +238,18 @@ export default function TestimonialsPage() {
         </motion.div>
       </section>
 
-      {/* Trust Banner */}
-      <section className="relative py-16 sm:py-20 px-4 sm:px-6 bg-light-gray border-y border-border overflow-hidden">
+      {/* Trust Banner — card */}
+      <section className="relative py-16 sm:py-20 px-4 sm:px-6 overflow-hidden">
         <DotGrid className="top-5 left-5 w-[120px] h-[120px] opacity-20" />
         <RingDecoration className="bottom-5 right-5 opacity-15" size={140} />
 
-        <div className="max-w-3xl mx-auto text-center relative z-10">
+        <div className="max-w-3xl mx-auto relative z-10">
           <Reveal>
-            <div className="flex flex-col items-center gap-6">
+            <motion.div
+              className="rounded-2xl border border-border bg-background p-8 sm:p-12 shadow-sm"
+              whileHover={{ boxShadow: "0 20px 40px rgba(0,0,0,0.06)", transition: HOVER_SPRING }}
+            >
+            <div className="flex flex-col items-center gap-6 text-center">
               <div className="flex items-center gap-1" role="img" aria-label="5 out of 5 stars">
                 {Array.from({ length: 5 }).map((_, i) => (
                   <Star key={i} className="w-5 h-5 text-amber-400 fill-amber-400" aria-hidden="true" />
@@ -258,6 +268,7 @@ export default function TestimonialsPage() {
                   </a>
                 </span>
             </div>
+            </motion.div>
           </Reveal>
         </div>
       </section>

@@ -77,10 +77,11 @@ export default function TeamPage() {
               return (
                 <Reveal key={v.title} delay={i} direction="scale">
                   <motion.div
-                    className="bg-background rounded-2xl border border-border p-7 sm:p-8 h-full group"
+                    className="bg-background rounded-2xl border border-border p-7 sm:p-8 h-full group shadow-sm"
                     whileHover={{
                       y: -6,
-                      boxShadow: "0 20px 40px rgba(0,0,0,0.08)",
+                      boxShadow: "0 24px 48px rgba(0,0,0,0.08)",
+                      borderColor: "rgba(16,185,129,0.2)",
                       transition: HOVER_SPRING,
                     }}
                   >

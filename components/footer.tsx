@@ -13,7 +13,7 @@ const footerLinks = {
   ],
   Company: [
     { href: "/team", label: "About Us" },
-    { href: "mailto:info@shamanyantra.com", label: "Contact" },
+    { href: "/contact", label: "Contact" },
     { href: "mailto:careers@shamanyantra.com", label: "Careers" },
   ],
   Legal: [

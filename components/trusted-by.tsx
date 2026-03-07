@@ -38,10 +38,34 @@ const statsItem = {
   visible: { opacity: 1, y: 0, transition: { type: "tween" as const, duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] } },
 }
 
+const platformStats = [
+  { value: "3-in-1", label: "Unified platform" },
+  { value: "5 min", label: "Setup time" },
+  { value: "14 days", label: "Free trial" },
+]
+
 export function TrustedBy() {
   return (
     <section className="py-20 px-6 lg:px-8">
       <div className="max-w-5xl mx-auto">
+        {/* Platform stats — moved from Hero */}
+        <motion.div
+          className="grid grid-cols-3 gap-6 sm:gap-8 max-w-2xl mx-auto mb-14 pb-10 border-b border-border"
+          variants={statsContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "0px 0px -40px 0px" }}
+        >
+          {platformStats.map((stat) => (
+            <motion.div key={stat.label} variants={statsItem} className="text-center">
+              <div className="text-2xl sm:text-3xl lg:text-4xl font-serif text-foreground leading-none mb-2">
+                {stat.value}
+              </div>
+              <p className="text-sm text-muted-foreground">{stat.label}</p>
+            </motion.div>
+          ))}
+        </motion.div>
+
         <Reveal>
           <p className="text-center text-sm text-muted-foreground mb-10">
             Trusted by leading Nepali businesses

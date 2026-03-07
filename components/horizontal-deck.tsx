@@ -169,7 +169,7 @@ export function HorizontalDeck({ children }: HorizontalDeckProps) {
           top: 0,
           left: 0,
           right: 0,
-          height: 2,
+          height: 3,
           background: "var(--primary)",
           transformOrigin: "left center",
           scaleX: progressSpring,
@@ -225,11 +225,11 @@ export function HorizontalDeck({ children }: HorizontalDeckProps) {
         )}
       </AnimatePresence>
 
-      {/* Nav dots — stagger in on mount, active pill uses layoutId for smooth morph */}
+      {/* Nav dots — stagger in on mount, active pill uses layoutId for smooth morph; 44px touch target on mobile */}
       <motion.div
         role="tablist"
         aria-label="Navigate sections"
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2"
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-1.5 sm:gap-2"
         initial="hidden"
         animate="visible"
         variants={{
@@ -247,25 +247,31 @@ export function HorizontalDeck({ children }: HorizontalDeckProps) {
               aria-selected={isActive}
               aria-controls={getCardId(child)}
               aria-label={`Go to section: ${label}`}
+              title={label}
               onClick={() => scrollToCard(i)}
               variants={{ hidden: { opacity: 0, y: 8 }, visible: { opacity: 1, y: 0 } }}
-              className="relative flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-full"
+              className="relative flex items-center justify-center w-11 h-11 min-w-[44px] min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-full"
               style={{
-                width: isActive ? 24 : 8,
-                height: 8,
-                transition: "width 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
                 background: "transparent",
                 border: "none",
                 padding: 0,
                 cursor: "pointer",
-                willChange: "width",
+                willChange: "transform",
               }}
             >
-              <span className="absolute inset-0 rounded-full" style={{ background: "rgba(11, 22, 40, 0.18)" }} />
+              <span
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full transition-[width] duration-300 ease-out"
+                style={{
+                  width: isActive ? 28 : 10,
+                  height: 10,
+                  background: "rgba(11, 22, 40, 0.28)",
+                }}
+              />
               {isActive && (
                 <motion.span
                   layoutId="active-dot"
-                  className="absolute inset-0 rounded-full bg-foreground"
+                  className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-foreground"
+                  style={{ width: 28, height: 10 }}
                   transition={{ type: "spring", stiffness: 380, damping: 28 }}
                 />
               )}

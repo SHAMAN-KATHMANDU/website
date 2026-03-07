@@ -326,6 +326,114 @@
 
 /* ─── End Team Infinite Marquee ──────────────────────────────────────────── */
 
+/* ─── Truck Delivery Loader ────────────────────────────────────────────────── */
+/* From Uiverse.io by vinodjangid07 */
+
+.truck-loader-wrapper {
+  width: 200px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  align-items: center;
+  justify-content: flex-end;
+  overflow-x: hidden;
+}
+
+.truck-loader-body {
+  width: 130px;
+  height: fit-content;
+  margin-bottom: 6px;
+  animation: truck-loader-motion 1s linear infinite;
+}
+
+.truck-loader-body .truck-loader-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+@keyframes truck-loader-motion {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(3px); }
+  100% { transform: translateY(0); }
+}
+
+.truck-loader-tires {
+  width: 130px;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px 0 15px;
+  position: absolute;
+  bottom: 0;
+}
+
+.truck-loader-tires .truck-loader-tire {
+  width: 24px;
+  height: 24px;
+}
+
+.truck-loader-road {
+  width: 100%;
+  height: 1.5px;
+  background-color: #282828;
+  position: relative;
+  bottom: 0;
+  align-self: flex-end;
+  border-radius: 3px;
+}
+
+.truck-loader-road::before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 100%;
+  background-color: #282828;
+  right: -50%;
+  border-radius: 3px;
+  animation: truck-loader-road 1.4s linear infinite;
+  border-left: 10px solid white;
+}
+
+.truck-loader-road::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 100%;
+  background-color: #282828;
+  right: -65%;
+  border-radius: 3px;
+  animation: truck-loader-road 1.4s linear infinite;
+  border-left: 4px solid white;
+}
+
+.truck-loader-lamppost {
+  position: absolute;
+  bottom: 0;
+  right: -90%;
+  height: 90px;
+  width: auto;
+  animation: truck-loader-road 1.4s linear infinite;
+}
+
+@keyframes truck-loader-road {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-350px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .truck-loader-body,
+  .truck-loader-road::before,
+  .truck-loader-road::after,
+  .truck-loader-lamppost {
+    animation: none !important;
+  }
+}
+
+/* ─── End Truck Delivery Loader ────────────────────────────────────────────── */
+
 /* Minimal background grid — applied to sections so it shows through transparent areas */
 .bg-grid {
   background-image:

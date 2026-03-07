@@ -1,8 +1,10 @@
 import type { Metadata, Viewport } from 'next'
+import { Suspense } from 'react'
 import { Inter, DM_Serif_Display, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 import { Navbar } from '@/components/navbar'
 import { LayoutFooter } from '@/components/layout-footer'
+import { LoadingFallback } from '@/components/loading-fallback'
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -80,7 +82,9 @@ export default function RootLayout({
         </a>
         <Navbar />
         <main id="main-content" className="relative" data-main>
-          {children}
+          <Suspense fallback={<LoadingFallback />}>
+            {children}
+          </Suspense>
         </main>
         <LayoutFooter />
         <noscript>

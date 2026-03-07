@@ -54,13 +54,15 @@ export function useHorizontalScroll({
     [containerRef]
   )
 
-  // Wheel → horizontal card navigation
+  // Wheel → horizontal card navigation (with throttle + accumulation to prevent jumpy section changes)
   useEffect(() => {
     const container = containerRef.current
     if (!container) return
 
     let lastWheelTime = 0
-    const THROTTLE_MS = 800 // prevent rapid multi-card skips
+    let accumulatedDelta = 0
+    const THROTTLE_MS = 1400 // prevent rapid multi-card skips
+    const DELTA_THRESHOLD = 90 // require this much scroll before advancing to next card
 
     const onWheel = (e: WheelEvent) => {
       // Only intercept vertical-dominant wheel events
@@ -72,13 +74,21 @@ export function useHorizontalScroll({
       e.preventDefault()
 
       const now = Date.now()
-      if (now - lastWheelTime < THROTTLE_MS) return
+      // Reset accumulation when direction changes or after throttle period
+      if (now - lastWheelTime > THROTTLE_MS) {
+        accumulatedDelta = 0
+      }
+      accumulatedDelta += e.deltaY
       lastWheelTime = now
 
-      if (e.deltaY > 0 && activeIndex < cardCount - 1) {
-        scrollToCard(activeIndex + 1)
-      } else if (e.deltaY < 0 && activeIndex > 0) {
-        scrollToCard(activeIndex - 1)
+      if (Math.abs(accumulatedDelta) >= DELTA_THRESHOLD) {
+        if (accumulatedDelta > 0 && activeIndex < cardCount - 1) {
+          scrollToCard(activeIndex + 1)
+          accumulatedDelta = 0
+        } else if (accumulatedDelta < 0 && activeIndex > 0) {
+          scrollToCard(activeIndex - 1)
+          accumulatedDelta = 0
+        }
       }
     }
 

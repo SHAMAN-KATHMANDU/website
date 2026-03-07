@@ -50,7 +50,7 @@ export default function NotFound() {
               { href: "/pricing", label: "Pricing" },
               { href: "/testimonials", label: "Testimonials" },
               { href: "/team", label: "Team" },
-              { href: "mailto:info@shamanyantra.com", label: "Contact" },
+              { href: "/contact", label: "Contact" },
             ].map((link) => (
               <Link
                 key={link.href}

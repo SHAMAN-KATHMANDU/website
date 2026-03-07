@@ -5,7 +5,8 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Reveal } from "@/components/reveal"
 import { CtaSection } from "@/components/cta-section"
 import Link from "next/link"
-import { Check, X, ArrowRight, ChevronDown } from "lucide-react"
+import { Check, X, ArrowRight } from "lucide-react"
+import { FaqList } from "@/components/faq-list"
 
 
 const HOVER_SPRING = { type: "spring" as const, stiffness: 300, damping: 24 }
@@ -115,43 +116,6 @@ const comparisonGroups = [
     ],
   },
   {
-    label: "Inventory",
-    rows: [
-      { feature: "Product catalog & SKU", cols: [ck(), ck(), ck(), ck()] },
-      { feature: "Real-time stock tracking", cols: [ck(), ck(), ck(), ck()] },
-      { feature: "Low stock alerts", cols: [ck(), ck(), val("Advanced"), val("Advanced")] },
-      { feature: "Barcode scanning", cols: [ck(), ck(), ck(), ck()] },
-      { feature: "Multi-warehouse transfers", cols: [cx(), ck(), ck(), ck()] },
-      { feature: "Purchase orders", cols: [ck(), ck(), ck(), val("Auto-draft")] },
-      { feature: "Supplier management", cols: [ck(), ck(), ck(), ck()] },
-    ],
-  },
-  {
-    label: "CRM",
-    rows: [
-      { feature: "Customer profiles", cols: [val("Basic"), val("Full"), val("Full"), val("Full")] },
-      { feature: "Sales pipeline & deals", cols: [cx(), ck(), ck(), ck()] },
-      { feature: "Activity timeline", cols: [ck(), ck(), ck(), ck()] },
-      { feature: "Task management", cols: [ck(), ck(), ck(), val("Advanced")] },
-      { feature: "Contact segmentation", cols: [cx(), ck(), val("Advanced"), val("Advanced")] },
-      { feature: "Lead scoring", cols: [cx(), cx(), ck(), ck()] },
-      { feature: "WhatsApp Integration", cols: [cx(), cx(), ck("Business API"), val("+ Priority")] },
-    ],
-  },
-  {
-    label: "Reporting",
-    rows: [
-      { feature: "Data history", cols: [val("30 days"), val("12 months"), val("Full"), val("Full")] },
-      { feature: "Pre-built reports", cols: [val("3 basic"), val("All"), val("All"), val("All")] },
-      { feature: "Custom report builder", cols: [cx(), val("5 saved"), val("Unlimited"), val("Unlimited")] },
-      { feature: "Report exports", cols: [val("3/month"), val("Unlimited"), val("Unlimited"), val("Unlimited")] },
-      { feature: "Scheduled reports", cols: [cx(), ck(), ck(), ck()] },
-      { feature: "Advanced analytics", cols: [cx(), val("Basic trends"), val("Full"), val("Full + Custom")] },
-      { feature: "Real-time dashboards", cols: [cx(), cx(), ck(), ck()] },
-      { feature: "API data access", cols: [cx(), cx(), val("Raw data"), val("Full")] },
-    ],
-  },
-  {
     label: "Support",
     rows: [
       { feature: "Email support", cols: [val("24hr"), val("12hr"), val("4hr"), val("1hr")] },
@@ -165,7 +129,6 @@ const comparisonGroups = [
 const addons = [
   { name: "Extra Users", price: "NPR 500 / user / month", detail: "Beyond plan user limit" },
   { name: "Extra Locations", price: "NPR 1,000 / location / month", detail: "Additional warehouses" },
-  { name: "WhatsApp Integration", price: "NPR 2,000 / month", detail: "For Starter, Pro & Business plans" },
   { name: "Extra Storage", price: "NPR 500 per 5 GB / month", detail: "Additional file storage" },
 ]
 
@@ -204,21 +167,30 @@ export default function PricingPage() {
 
   return (
     <div className="pt-24 bg-grid">
-      {/* Header */}
-      <section className="px-4 sm:px-6 lg:px-8 py-16 sm:py-20 text-center max-w-4xl mx-auto">
-        <Reveal>
-          <p className="text-sm font-medium text-primary mb-4">Transparent Pricing</p>
-        </Reveal>
-        <Reveal delay={1}>
-          <h1 className="font-serif text-4xl sm:text-5xl lg:text-7xl text-foreground mb-6 text-balance leading-tight">
-            Plans for every stage
-          </h1>
-        </Reveal>
-        <Reveal delay={2}>
-          <p className="text-muted-foreground text-base sm:text-lg max-w-xl mx-auto leading-relaxed">
-            14-day free trial on all plans. No credit card required. Cancel anytime.
-          </p>
-        </Reveal>
+      {/* Header — card */}
+      <section className="px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+        <div className="max-w-4xl mx-auto">
+          <motion.div
+            className="rounded-2xl border border-border bg-background p-8 sm:p-12 lg:p-16 shadow-sm text-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+          >
+            <Reveal>
+              <p className="text-sm font-medium text-primary mb-4">Transparent Pricing</p>
+            </Reveal>
+            <Reveal delay={1}>
+              <h1 className="font-serif text-4xl sm:text-5xl lg:text-7xl text-foreground mb-6 text-balance leading-tight">
+                Plans for every stage
+              </h1>
+            </Reveal>
+            <Reveal delay={2}>
+              <p className="text-muted-foreground text-base sm:text-lg max-w-xl mx-auto leading-relaxed">
+                14-day free trial on all plans. No credit card required. Cancel anytime.
+              </p>
+            </Reveal>
+          </motion.div>
+        </div>
       </section>
 
       {/* Billing Toggle — accessible radiogroup */}
@@ -276,6 +248,7 @@ export default function PricingPage() {
 
       {/* Pricing Cards — staggered entrance + hover lift */}
       <section className="px-4 sm:px-6 lg:px-8 pb-16 sm:pb-24">
+        <div className="max-w-7xl mx-auto">
         <motion.div
           className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 sm:gap-6"
           variants={cardContainer}
@@ -380,6 +353,7 @@ export default function PricingPage() {
             </motion.div>
           ))}
         </motion.div>
+        </div>
       </section>
 
       {/* Section divider */}
@@ -387,19 +361,29 @@ export default function PricingPage() {
         <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent" />
       </div>
 
-      {/* Comparison Table */}
-      <section className="py-16 sm:py-24 bg-light-gray">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Comparison Table — card container */}
+      <section className="px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            className="rounded-2xl border border-border bg-background shadow-sm overflow-hidden"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+          <div className="p-8 sm:p-10 bg-light-gray border-b border-border">
           <Reveal>
-            <div className="mb-8 sm:mb-10">
+            <div>
               <p className="text-sm font-medium text-primary mb-4">Full Feature Breakdown</p>
               <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-foreground text-balance">
                 Compare every feature side by side
               </h2>
             </div>
           </Reveal>
+          </div>
 
-          {/* Group Filter */}
+          {/* Group Filter & Table */}
+          <div className="p-6 sm:p-8">
           <Reveal delay={1}>
             <div className="flex flex-wrap gap-2 mb-8 sm:mb-10">
               {groups.map((g) => (
@@ -529,6 +513,8 @@ export default function PricingPage() {
               ))}
             </div>
           </Reveal>
+          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -548,7 +534,7 @@ export default function PricingPage() {
               </h2>
             </div>
           </Reveal>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
             {addons.map((a, i) => (
               <Reveal key={a.name} delay={i % 4} direction="scale">
                 <motion.div
@@ -598,80 +584,6 @@ export default function PricingPage() {
       </section>
 
       <CtaSection />
-    </div>
-  )
-}
-
-const faqs = [
-  {
-    q: "What happens after the 14-day free trial?",
-    a: "Your trial includes full access to all features of your chosen plan. At the end of 14 days, you can choose to subscribe or your account will be paused — your data is never deleted. You can reactivate at any time.",
-  },
-  {
-    q: "Can I change my plan later?",
-    a: "Yes, you can upgrade or downgrade your plan at any time from your account settings. Upgrades take effect immediately; downgrades apply at the next billing cycle.",
-  },
-  {
-    q: "Is my business data safe?",
-    a: "Absolutely. All data is encrypted in transit (TLS 1.3) and at rest (AES-256). We maintain regular backups and our infrastructure is hosted on enterprise-grade servers with 99.9% uptime SLA on Business and Enterprise plans.",
-  },
-  {
-    q: "What payment methods do you accept?",
-    a: "We accept eSewa, IME Pay, and bank transfer (IPS). For Enterprise plans, we also support custom invoicing and purchase orders.",
-  },
-  {
-    q: "Can I cancel anytime?",
-    a: "Yes, there are no lock-in contracts on Starter, Pro, or Business plans. You can cancel at any time and your subscription will remain active until the end of the current billing period.",
-  },
-  {
-    q: "Do you offer discounts for NGOs or educational institutions?",
-    a: "Yes — we offer special pricing for registered NGOs, schools, and government institutions in Nepal. Contact us at info@shamanyantra.com with your registration details.",
-  },
-  {
-    q: "Is there a setup fee?",
-    a: "No setup fees on any plan. Business plans include a complimentary 1-hour onboarding session, and Enterprise plans include a full-day onboarding with your team.",
-  },
-]
-
-function FaqList() {
-  const [open, setOpen] = useState<number | null>(null)
-  return (
-    <div className="space-y-3">
-      {faqs.map((faq, i) => (
-        <Reveal key={i} delay={i % 4}>
-          <div className="border border-border rounded-xl overflow-hidden bg-background">
-            <button
-              className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset"
-              onClick={() => setOpen(open === i ? null : i)}
-              aria-expanded={open === i}
-            >
-              <span className="text-sm font-medium text-foreground">{faq.q}</span>
-              <motion.span
-                animate={{ rotate: open === i ? 180 : 0 }}
-                transition={{ duration: 0.2 }}
-                className="shrink-0 text-muted-foreground"
-              >
-                <ChevronDown className="w-4 h-4" aria-hidden="true" />
-              </motion.span>
-            </button>
-            <AnimatePresence initial={false}>
-              {open === i && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
-                  className="overflow-hidden"
-                >
-                  <p className="px-6 pb-5 text-sm text-muted-foreground leading-relaxed border-t border-border pt-4">
-                    {faq.a}
-                  </p>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        </Reveal>
-      ))}
     </div>
   )
 }
