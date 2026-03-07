@@ -29,7 +29,7 @@ export function Marquee() {
             key={i}
             className="flex items-center gap-8 px-10 text-sm text-muted-foreground whitespace-nowrap"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" aria-hidden="true" />
+            <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" aria-hidden="true" />
             {item}
           </div>
         ))}
