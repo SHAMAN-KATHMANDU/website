@@ -38,28 +38,28 @@ const features = [
 
 export function FeaturesPreview() {
   return (
-    <section className="relative py-28 px-6 lg:px-8 bg-light-gray overflow-hidden">
+    <section className="relative h-full min-h-0 flex flex-col py-6 md:py-10 px-4 sm:px-6 lg:px-8 bg-light-gray overflow-hidden">
       {/* Abstract background decorations */}
       <GradientOrb className="top-[-100px] right-[-100px]" color="rgba(16, 185, 129, 0.06)" size={500} />
       <AbstractLines className="top-20 left-0 opacity-40" />
       <DotGrid className="bottom-10 right-10 w-[180px] h-[180px] opacity-20" />
       <CrossGrid className="top-40 right-20 opacity-20" />
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* Header */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end mb-16">
+      <div className="max-w-7xl mx-auto relative z-10 flex flex-col flex-1 min-h-0">
+        {/* Header — compact */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 items-end mb-4 sm:mb-6">
           <div>
             <Reveal>
-              <p className="text-sm font-medium text-primary mb-4">Core Platform</p>
+              <p className="text-xs sm:text-sm font-medium text-primary mb-2">Core Platform</p>
             </Reveal>
             <Reveal delay={1}>
-              <h2 className="font-serif text-4xl lg:text-5xl text-foreground leading-tight text-balance">
+              <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl xl:text-5xl text-foreground leading-tight text-balance">
                 Everything your business needs to thrive
               </h2>
             </Reveal>
           </div>
           <Reveal delay={2}>
-            <p className="text-muted-foreground leading-relaxed">
+            <p className="text-muted-foreground text-sm sm:text-base leading-relaxed line-clamp-2 sm:line-clamp-none">
               Nepali businesses have been stitching together Excel sheets,
               WhatsApp groups, and paper records for too long. Shaman Yantra
               replaces all of it with one unified, powerful platform.
@@ -67,15 +67,14 @@ export function FeaturesPreview() {
           </Reveal>
         </div>
 
-        {/* Feature cards with images */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* Feature cards — smaller image and padding */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 flex-1 min-h-0">
           {features.map((f, i) => {
             const Icon = f.icon
             return (
               <Reveal key={f.label} delay={i} direction="scale">
-                <div className="bg-background rounded-2xl border border-border group hover:border-primary/20 hover:shadow-lg transition-all duration-500 h-full overflow-hidden">
-                  {/* Demo image placeholder */}
-                  <div className="relative h-48 overflow-hidden bg-muted">
+                <div className="bg-background rounded-xl sm:rounded-2xl border border-border group hover:border-primary/20 hover:shadow-lg transition-all duration-500 h-full overflow-hidden flex flex-col">
+                  <div className="relative h-28 sm:h-36 lg:h-40 overflow-hidden bg-muted shrink-0">
                     <Image
                       src={f.image}
                       alt={`${f.title} demo screenshot`}
@@ -84,28 +83,24 @@ export function FeaturesPreview() {
                       sizes="(max-width: 768px) 100vw, 33vw"
                     />
                     <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/10 pointer-events-none" />
-                    <div className="absolute top-3 left-3">
-                      <div className="w-8 h-8 rounded-lg bg-background/90 backdrop-blur-sm flex items-center justify-center shadow-sm">
-                        <Icon className="w-4 h-4 text-primary" strokeWidth={1.5} />
+                    <div className="absolute top-2 left-2 sm:top-3 sm:left-3">
+                      <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-lg bg-background/90 backdrop-blur-sm flex items-center justify-center shadow-sm">
+                        <Icon className="w-3 h-3 sm:w-4 sm:h-4 text-primary" strokeWidth={1.5} />
                       </div>
                     </div>
                   </div>
 
-                  <div className="p-8 lg:p-10">
-                    <div className="flex items-center gap-3 mb-4">
-                      <p className="text-xs font-medium text-primary uppercase tracking-wide">
-                        {f.label}
-                      </p>
-                    </div>
-                    <h3 className="text-xl font-semibold text-foreground mb-3">{f.title}</h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed mb-6">
+                  <div className="p-4 sm:p-6 lg:p-8 flex flex-col flex-1 min-h-0">
+                    <p className="text-xs font-medium text-primary uppercase tracking-wide mb-1">{f.label}</p>
+                    <h3 className="text-base sm:text-lg font-semibold text-foreground mb-2">{f.title}</h3>
+                    <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed mb-3 line-clamp-3">
                       {f.desc}
                     </p>
-                    <div className="flex flex-wrap gap-2 mb-6">
+                    <div className="flex flex-wrap gap-1.5 mb-3">
                       {f.tags.map((t) => (
                         <span
                           key={t}
-                          className="text-xs text-muted-foreground bg-muted px-3 py-1 rounded-full border border-border group-hover:border-primary/15 group-hover:text-primary/80 transition-all duration-300"
+                          className="text-[10px] sm:text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded-full border border-border"
                         >
                           {t}
                         </span>
@@ -113,10 +108,10 @@ export function FeaturesPreview() {
                     </div>
                     <Link
                       href={f.href}
-                      className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-accent transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
+                      className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-primary hover:text-accent transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded mt-auto"
                     >
                       Learn more
-                      <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+                      <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5" aria-hidden="true" />
                     </Link>
                   </div>
                 </div>
@@ -125,13 +120,13 @@ export function FeaturesPreview() {
           })}
         </div>
 
-        <Reveal delay={2} className="text-center mt-12">
+        <Reveal delay={2} className="text-center mt-4 shrink-0">
           <Link
             href="/features"
-            className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-accent transition-colors duration-200"
+            className="inline-flex items-center gap-2 text-xs sm:text-sm font-medium text-primary hover:text-accent transition-colors duration-200"
           >
             View all features
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           </Link>
         </Reveal>
       </div>

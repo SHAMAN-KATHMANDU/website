@@ -239,6 +239,7 @@
   scroll-snap-type: x mandatory;
   /* scroll-behavior is set via JS scrollTo({ behavior }) — not here, to avoid conflicts */
   -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
   /* Hide the horizontal scrollbar across all browsers */
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -249,28 +250,38 @@
   display: none;
 }
 
-/* Each card — 100vw × 100vh, snaps to start, allows inner vertical scroll */
+/* Each card — 100vw × 100vh, fixed height, no vertical scroll */
 .horizontal-card {
   flex-shrink: 0;
   width: 100vw;
-  min-height: 100vh;
-  /* Use dvh on mobile to account for browser chrome (address bar) */
-  min-height: 100dvh;
+  height: 100vh;
   scroll-snap-align: start;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden;
   position: relative;
-  /* Contain overscroll so inner vertical scroll never bleeds into horizontal deck */
-  overscroll-behavior: contain auto;
+  overscroll-behavior: contain;
   /* GPU layer hint — card shell stays on compositor, no layout thrashing */
   will-change: transform, opacity;
 }
 
-/* Horizontal deck also uses dvh for correct full-screen on mobile */
+/* Horizontal deck and cards use dvh for correct full-screen on mobile */
 @media (max-width: 767px) {
   .horizontal-deck {
     height: 100dvh;
   }
+  .horizontal-card {
+    height: 100dvh;
+  }
+  .horizontal-deck-wrapper {
+    height: 100dvh;
+  }
+}
+
+/* Wrapper for the deck (used in JSX) */
+.horizontal-deck-wrapper {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
 }
 
 /* Shimmer skeleton animation — used by loading.tsx files */

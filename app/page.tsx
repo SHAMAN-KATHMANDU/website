@@ -16,10 +16,12 @@ export default function HomePage() {
         <Hero />
       </HorizontalCard>
 
-      {/* Card 2 — Marquee + TrustedBy (grouped: Marquee alone is ~80px, not enough for 100vh) */}
+      {/* Card 2 — Marquee + TrustedBy (viewport-fit: flex column, no vertical scroll) */}
       <HorizontalCard id="trusted-by" label="Trusted By" isActive={false}>
-        <Marquee />
-        <TrustedBy />
+        <div className="h-full flex flex-col min-h-0">
+          <Marquee />
+          <TrustedBy />
+        </div>
       </HorizontalCard>
 
       {/* Card 3 — Features */}
@@ -32,10 +34,12 @@ export default function HomePage() {
         <Roadmap />
       </HorizontalCard>
 
-      {/* Card 5 — CTA + Footer (Footer pulled inside last card so it is reachable in horizontal flow) */}
+      {/* Card 5 — CTA + Footer (viewport-fit: flex column, compact footer) */}
       <HorizontalCard id="get-started" label="Get Started" isActive={false}>
-        <CtaSection />
-        <Footer />
+        <div className="h-full flex flex-col min-h-0">
+          <CtaSection />
+          <Footer compact />
+        </div>
       </HorizontalCard>
     </HorizontalDeck>
   )

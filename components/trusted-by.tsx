@@ -46,11 +46,11 @@ const platformStats = [
 
 export function TrustedBy() {
   return (
-    <section className="py-20 px-6 lg:px-8">
-      <div className="max-w-5xl mx-auto">
-        {/* Platform stats — moved from Hero */}
+    <section className="flex-1 min-h-0 flex flex-col py-6 md:py-10 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      <div className="max-w-5xl mx-auto w-full flex flex-col flex-1 min-h-0">
+        {/* Platform stats */}
         <motion.div
-          className="grid grid-cols-3 gap-6 sm:gap-8 max-w-2xl mx-auto mb-14 pb-10 border-b border-border"
+          className="grid grid-cols-3 gap-3 sm:gap-6 max-w-2xl mx-auto mb-4 sm:mb-6 pb-4 sm:pb-6 border-b border-border"
           variants={statsContainer}
           initial="hidden"
           whileInView="visible"
@@ -58,23 +58,23 @@ export function TrustedBy() {
         >
           {platformStats.map((stat) => (
             <motion.div key={stat.label} variants={statsItem} className="text-center">
-              <div className="text-2xl sm:text-3xl lg:text-4xl font-serif text-foreground leading-none mb-2">
+              <div className="text-xl sm:text-2xl lg:text-3xl font-serif text-foreground leading-none mb-1">
                 {stat.value}
               </div>
-              <p className="text-sm text-muted-foreground">{stat.label}</p>
+              <p className="text-xs sm:text-sm text-muted-foreground">{stat.label}</p>
             </motion.div>
           ))}
         </motion.div>
 
         <Reveal>
-          <p className="text-center text-sm text-muted-foreground mb-10">
+          <p className="text-center text-xs sm:text-sm text-muted-foreground mb-4 sm:mb-6">
             Trusted by leading Nepali businesses
           </p>
         </Reveal>
 
-        {/* Logos — hover reveals color */}
+        {/* Logos — tighter grid, smaller on mobile */}
         <motion.div
-          className="flex flex-wrap items-center justify-center gap-4 mb-14"
+          className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 mb-4 sm:mb-6"
           variants={logoContainer}
           initial="hidden"
           whileInView="visible"
@@ -89,26 +89,26 @@ export function TrustedBy() {
                 filter: "grayscale(0%) brightness(1)",
                 transition: HOVER_SPRING,
               }}
-              className="flex items-center gap-3 px-5 py-3 rounded-xl border border-border bg-background cursor-default select-none"
+              className="flex items-center gap-2 sm:gap-3 px-3 sm:px-5 py-2 sm:py-3 rounded-lg sm:rounded-xl border border-border bg-background cursor-default select-none"
               style={{ filter: "grayscale(30%) brightness(0.9)", transition: "filter 0.3s ease" }}
               title={logo.name}
             >
               <div
-                className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
+                className="w-6 h-6 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center shrink-0"
                 style={{ background: logo.bg }}
               >
-                <span className="text-xs font-extrabold" style={{ color: logo.color }}>
+                <span className="text-[10px] sm:text-xs font-extrabold" style={{ color: logo.color }}>
                   {logo.abbr}
                 </span>
               </div>
-              <span className="text-sm font-semibold text-foreground">{logo.name}</span>
+              <span className="text-xs sm:text-sm font-semibold text-foreground">{logo.name}</span>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Stats — stagger + hover spring */}
+        {/* Stats */}
         <motion.div
-          className="flex flex-wrap items-center justify-center gap-3"
+          className="flex flex-wrap items-center justify-center gap-2 sm:gap-3"
           variants={statsContainer}
           initial="hidden"
           whileInView="visible"
@@ -119,10 +119,10 @@ export function TrustedBy() {
               key={s.label}
               variants={statsItem}
               whileHover={{ scale: 1.06, y: -2, transition: HOVER_SPRING }}
-              className="flex items-center gap-2 bg-secondary border border-border rounded-full px-5 py-2.5"
+              className="flex items-center gap-2 bg-secondary border border-border rounded-full px-3 sm:px-5 py-1.5 sm:py-2.5"
             >
-              <span className="text-sm font-semibold text-foreground">{s.value}</span>
-              <span className="text-xs text-muted-foreground">{s.label}</span>
+              <span className="text-xs sm:text-sm font-semibold text-foreground">{s.value}</span>
+              <span className="text-[10px] sm:text-xs text-muted-foreground">{s.label}</span>
             </motion.div>
           ))}
         </motion.div>

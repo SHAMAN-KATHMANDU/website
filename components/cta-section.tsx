@@ -18,7 +18,7 @@ const item = {
 
 export function CtaSection() {
   return (
-    <section className="relative py-28 px-6 lg:px-8 overflow-hidden bg-background border-t border-border">
+    <section className="relative flex-1 min-h-0 flex flex-col justify-center py-6 md:py-10 px-4 sm:px-6 lg:px-8 overflow-hidden bg-background border-t border-border">
       {/* Decorative background */}
       <GradientOrb className="top-[-200px] left-1/2 -translate-x-1/2" color="rgba(16, 185, 129, 0.06)" size={700} />
       <DotGrid className="top-10 left-10 w-[160px] h-[160px] opacity-20" />
@@ -32,29 +32,28 @@ export function CtaSection() {
         viewport={{ once: true, margin: "0px 0px -80px 0px" }}
       >
         <motion.div variants={item}>
-          <div className="inline-flex items-center gap-2 text-xs font-medium text-primary bg-secondary px-4 py-2 rounded-full border border-primary/20 mb-8">
-            <Zap className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-2 text-xs font-medium text-primary bg-secondary px-3 py-1.5 sm:px-4 sm:py-2 rounded-full border border-primary/20 mb-4 sm:mb-6">
+            <Zap className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
             14-day free trial · No credit card required
           </div>
         </motion.div>
 
         <motion.h2
           variants={item}
-          className="font-serif text-4xl lg:text-6xl text-foreground mb-6 text-balance leading-tight"
+          className="font-serif text-2xl sm:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl text-foreground mb-4 sm:mb-6 text-balance leading-tight"
         >
           Ready to transform your business?
         </motion.h2>
 
         <motion.p
           variants={item}
-          className="text-muted-foreground text-lg leading-relaxed mb-10 max-w-xl mx-auto"
+          className="text-muted-foreground text-sm sm:text-base lg:text-lg leading-relaxed mb-6 sm:mb-8 max-w-xl mx-auto"
         >
           Join 500+ Nepali businesses already running smarter with Shaman Yantra.
           Set up in under 5 minutes.
         </motion.p>
 
-        <motion.div variants={item} className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          {/* Primary CTA — expanding background on hover */}
+        <motion.div variants={item} className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
           <motion.div
             whileHover={{ scale: 1.04, y: -2, transition: HOVER_SPRING }}
             whileTap={{ scale: 0.97 }}
@@ -62,14 +61,13 @@ export function CtaSection() {
           >
             <Link
               href="/pricing"
-              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-xl bg-primary text-primary-foreground text-sm font-semibold shadow-lg shadow-primary/20 hover:bg-accent transition-colors duration-200"
+              className="inline-flex items-center gap-2 sm:gap-2.5 px-6 sm:px-8 py-3 sm:py-4 rounded-xl bg-primary text-primary-foreground text-sm font-semibold shadow-lg shadow-primary/20 hover:bg-accent transition-colors duration-200"
             >
               Start Free Trial
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </Link>
           </motion.div>
 
-          {/* Secondary CTA */}
           <motion.div
             whileHover={{ scale: 1.03, y: -1, transition: HOVER_SPRING }}
             whileTap={{ scale: 0.97 }}
@@ -77,14 +75,14 @@ export function CtaSection() {
           >
             <Link
               href="/features"
-              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-xl border border-border text-foreground text-sm font-medium hover:bg-muted hover:border-foreground/20 transition-all duration-200"
+              className="inline-flex items-center gap-2 sm:gap-2.5 px-6 sm:px-8 py-3 sm:py-4 rounded-xl border border-border text-foreground text-sm font-medium hover:bg-muted hover:border-foreground/20 transition-all duration-200"
             >
               Explore Features
             </Link>
           </motion.div>
         </motion.div>
 
-        <motion.p variants={item} className="mt-8 text-xs text-muted-foreground">
+        <motion.p variants={item} className="mt-4 sm:mt-6 text-xs text-muted-foreground">
           No setup fees · Cancel anytime · Nepal-based support
         </motion.p>
       </motion.div>

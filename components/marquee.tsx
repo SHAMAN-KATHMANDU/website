@@ -12,7 +12,7 @@ const marqueeItems = [
 export function Marquee() {
   return (
     <div
-      className="overflow-hidden py-5 bg-light-gray border-y border-border"
+      className="overflow-hidden py-3 sm:py-5 bg-light-gray border-y border-border shrink-0"
       aria-hidden="true"
     >
       <div

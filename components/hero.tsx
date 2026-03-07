@@ -47,7 +47,7 @@ export function Hero() {
       <HexGrid className="bottom-20 right-20 opacity-50" />
       <FloatingParticles className="z-0" />
 
-      <div className="max-w-7xl mx-auto w-full px-6 lg:px-8 py-16 lg:py-20 relative z-10">
+      <div className="max-w-7xl mx-auto w-full px-6 lg:px-8 py-8 md:py-16 lg:py-20 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left content */}
           <div className="relative z-10">

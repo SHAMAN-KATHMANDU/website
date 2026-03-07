@@ -39,6 +39,14 @@ export function HorizontalDeck({ children }: HorizontalDeckProps) {
   const toastTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const reduceMotion = useReducedMotion() ?? false
 
+  // Lock body scroll on homepage so only horizontal deck scroll is active
+  useEffect(() => {
+    document.body.style.overflow = "hidden"
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [])
+
   useEffect(() => {
     if (typeof window === "undefined") return
     const isMobile = window.matchMedia("(max-width: 767px)").matches
@@ -160,7 +168,7 @@ export function HorizontalDeck({ children }: HorizontalDeckProps) {
   })
 
   return (
-    <div className="relative" style={{ width: "100vw", height: "100vh", overflow: "hidden" }}>
+    <div className="horizontal-deck-wrapper">
       {/* Progress bar — GPU-composited, spring-smoothed */}
       <motion.div
         aria-hidden="true"
@@ -225,11 +233,12 @@ export function HorizontalDeck({ children }: HorizontalDeckProps) {
         )}
       </AnimatePresence>
 
-      {/* Nav dots — stagger in on mount, active pill uses layoutId for smooth morph; 44px touch target on mobile */}
+      {/* Nav dots — stagger in on mount, active pill uses layoutId for smooth morph; 44px touch target on mobile; safe area on mobile */}
       <motion.div
         role="tablist"
         aria-label="Navigate sections"
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-1.5 sm:gap-2"
+        className="absolute left-1/2 -translate-x-1/2 z-50 flex items-center gap-1.5 sm:gap-2"
+        style={{ bottom: "calc(1.5rem + env(safe-area-inset-bottom, 0px))" }}
         initial="hidden"
         animate="visible"
         variants={{
@@ -288,7 +297,8 @@ export function HorizontalDeck({ children }: HorizontalDeckProps) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 8 }}
             transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="absolute bottom-20 left-1/2 -translate-x-1/2 z-50 pointer-events-none md:hidden"
+            className="absolute left-1/2 -translate-x-1/2 z-50 pointer-events-none md:hidden"
+            style={{ bottom: "calc(5rem + env(safe-area-inset-bottom, 0px))" }}
             aria-hidden="true"
           >
             <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-foreground/85 text-background backdrop-blur-sm text-xs font-medium">
@@ -321,7 +331,8 @@ export function HorizontalDeck({ children }: HorizontalDeckProps) {
             transition={{ duration: 0.22, ease: [0.25, 0.46, 0.45, 0.94] }}
             aria-live="polite"
             aria-atomic="true"
-            className="absolute bottom-16 left-1/2 -translate-x-1/2 z-50 pointer-events-none"
+            className="absolute left-1/2 -translate-x-1/2 z-50 pointer-events-none"
+            style={{ bottom: "calc(4rem + env(safe-area-inset-bottom, 0px))" }}
           >
             <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-foreground/90 text-background backdrop-blur-sm">
               {toastLabel}
