@@ -18,7 +18,7 @@ const item = {
 
 export function CtaSection() {
   return (
-    <section className="relative flex-1 min-h-0 flex flex-col justify-center py-6 md:py-10 px-4 sm:px-6 lg:px-8 overflow-hidden bg-background border-t border-border">
+    <section className="relative flex-1 min-h-0 flex flex-col justify-center py-6 md:py-8 lg:py-10 px-4 sm:px-6 lg:px-8 overflow-hidden bg-background border-t border-border">
       {/* Decorative background */}
       <GradientOrb className="top-[-200px] left-1/2 -translate-x-1/2" color="rgba(16, 185, 129, 0.06)" size={700} />
       <DotGrid className="top-10 left-10 w-[160px] h-[160px] opacity-20" />
@@ -40,7 +40,7 @@ export function CtaSection() {
 
         <motion.h2
           variants={item}
-          className="font-serif text-2xl sm:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl text-foreground mb-4 sm:mb-6 text-balance leading-tight"
+          className="font-serif text-2xl sm:text-3xl lg:text-4xl xl:text-5xl text-foreground mb-4 sm:mb-6 text-balance leading-tight"
         >
           Ready to transform your business?
         </motion.h2>
@@ -80,7 +80,16 @@ export function CtaSection() {
           </motion.div>
         </motion.div>
 
-        <motion.p variants={item} className="mt-4 sm:mt-6 text-xs text-muted-foreground">
+        {/* Stat strip — visual anchor */}
+        <motion.div variants={item} className="mt-5 sm:mt-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
+          <span className="font-medium text-foreground">500+ businesses</span>
+          <span aria-hidden="true">·</span>
+          <span>5 min setup</span>
+          <span aria-hidden="true">·</span>
+          <span>14-day free trial</span>
+        </motion.div>
+
+        <motion.p variants={item} className="mt-4 sm:mt-5 text-xs text-muted-foreground">
           No setup fees · Cancel anytime · Nepal-based support
         </motion.p>
       </motion.div>

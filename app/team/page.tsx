@@ -53,16 +53,16 @@ export default function TeamPage() {
       </div>
 
       {/* Values section */}
-      <section className="relative px-4 sm:px-6 lg:px-8 py-16 sm:py-24 overflow-hidden">
+      <section className="relative px-4 sm:px-6 lg:px-8 py-16 sm:py-20 overflow-hidden">
         <GradientOrb className="top-[-200px] left-1/2 -translate-x-1/2" color="rgba(16,185,129,0.06)" size={600} />
         <DotGrid className="top-10 right-10 w-[160px] h-[160px] opacity-20" />
         <RingDecoration className="bottom-10 left-10 opacity-15" size={180} />
 
         <div className="max-w-5xl mx-auto relative z-10">
           <Reveal>
-            <div className="text-center mb-12 sm:mb-16">
-              <p className="text-sm font-medium text-primary mb-4">What drives us</p>
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-foreground text-balance leading-tight">
+            <div className="text-center mb-10 sm:mb-12">
+              <p className="text-xs sm:text-sm font-medium text-primary mb-4">What drives us</p>
+              <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl xl:text-5xl text-foreground text-balance leading-tight">
                 Our values
               </h2>
               <p className="text-muted-foreground mt-4 max-w-xl mx-auto leading-relaxed">

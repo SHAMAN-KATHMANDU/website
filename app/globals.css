@@ -38,6 +38,17 @@
   --light-gray: #F8FAFC;
   --medium-gray: #E2E8F0;
   --warm-white: #FAFBFC;
+  /* Layout tokens — deck cards use py-6 md:py-8 lg:py-10; standard pages use py-16 sm:py-20 */
+  --section-padding-y: 1.5rem;
+  --section-padding-y-md: 2rem;
+  --section-padding-y-lg: 2.5rem;
+  --section-padding-x: 1rem;
+  --section-padding-x-sm: 1.5rem;
+  --section-padding-x-lg: 2rem;
+  /* Content max-width: 7xl for main sections, 5xl for TrustedBy, 3xl for CTA copy */
+  --content-max: 80rem;
+  --content-max-narrow: 64rem;
+  --content-max-cta: 48rem;
 }
 
 /* Dark mode token overrides — activate by adding .dark to <html> */

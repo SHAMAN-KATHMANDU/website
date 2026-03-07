@@ -12,11 +12,16 @@ const marqueeItems = [
 export function Marquee() {
   return (
     <div
-      className="overflow-hidden py-3 sm:py-5 bg-light-gray border-y border-border shrink-0"
+      className="overflow-hidden py-4 sm:py-6 shrink-0 border-y border-border relative"
       aria-hidden="true"
     >
+      {/* Subtle gradient background for distinct section feel */}
       <div
-        className="flex w-max"
+        className="absolute inset-0 bg-gradient-to-r from-secondary/30 via-light-gray to-secondary/30"
+        aria-hidden="true"
+      />
+      <div
+        className="flex w-max relative z-10"
         style={{ animation: "marquee 30s linear infinite" }}
       >
         {[...marqueeItems, ...marqueeItems].map((item, i) => (

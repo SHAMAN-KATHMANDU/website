@@ -36,7 +36,7 @@ export default function HomePage() {
 
       {/* Card 5 — CTA + Footer (viewport-fit: flex column, compact footer) */}
       <HorizontalCard id="get-started" label="Get Started" isActive={false}>
-        <div className="h-full flex flex-col min-h-0">
+        <div className="h-full flex flex-col min-h-0 gap-4 sm:gap-6">
           <CtaSection />
           <Footer compact />
         </div>

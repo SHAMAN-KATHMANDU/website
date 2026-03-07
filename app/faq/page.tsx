@@ -16,7 +16,7 @@ export default function FaqPage() {
 
         <div className="relative z-10">
           <Reveal>
-            <p className="text-sm font-medium text-primary mb-4">Common Questions</p>
+            <p className="text-xs sm:text-sm font-medium text-primary mb-4">Common Questions</p>
           </Reveal>
           <Reveal delay={1}>
             <h1 className="font-serif text-4xl sm:text-5xl lg:text-7xl text-foreground mb-6 text-balance leading-tight">
@@ -32,7 +32,7 @@ export default function FaqPage() {
       </section>
 
       {/* FAQ List */}
-      <section className="relative px-4 sm:px-6 lg:px-8 py-16 sm:py-24 overflow-hidden">
+      <section className="relative px-4 sm:px-6 lg:px-8 py-16 sm:py-20 overflow-hidden">
         <div className="max-w-3xl mx-auto relative z-10">
           <FaqList />
         </div>

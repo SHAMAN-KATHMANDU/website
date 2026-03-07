@@ -58,7 +58,7 @@ export default function ContactPage() {
 
         <div className="relative z-10">
           <Reveal>
-            <p className="text-sm font-medium text-primary mb-4">Get in Touch</p>
+            <p className="text-xs sm:text-sm font-medium text-primary mb-4">Get in Touch</p>
           </Reveal>
           <Reveal delay={1}>
             <h1 className="font-serif text-4xl sm:text-5xl lg:text-7xl text-foreground mb-6 text-balance leading-tight">
@@ -75,7 +75,7 @@ export default function ContactPage() {
       </section>
 
       {/* Contact Cards */}
-      <section className="relative px-4 sm:px-6 lg:px-8 pb-16 sm:pb-24 overflow-hidden">
+      <section className="relative px-4 sm:px-6 lg:px-8 py-16 sm:py-20 overflow-hidden">
         <GradientOrb className="top-[200px] left-[-200px]" color="rgba(16, 185, 129, 0.04)" size={500} />
 
         <motion.div

@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react"
 import Link from "next/link"
-import { ArrowRight, TrendingUp, ShoppingCart, Users } from "lucide-react"
-import { GradientOrb, DotGrid, RingDecoration, CrossGrid, FloatingParticles, DemoImage, MeshGrid, HexGrid } from "./abstract-elements"
+import { ArrowRight, TrendingUp, ShoppingCart } from "lucide-react"
+import { GradientOrb, DotGrid, DemoImage, MeshGrid } from "./abstract-elements"
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion"
 
 function FloatingCard({
@@ -38,17 +38,13 @@ export function Hero() {
 
   return (
     <section className="relative h-full min-h-0 flex flex-col justify-center overflow-hidden bg-background bg-grid isolate">
-      {/* Abstract background elements */}
+      {/* Abstract background elements — reduced for cleaner layout */}
       <GradientOrb className="top-[-200px] right-[-100px]" color="rgba(16, 185, 129, 0.08)" size={800} />
       <GradientOrb className="bottom-[-300px] left-[-200px]" color="rgba(16, 185, 129, 0.05)" size={600} />
       <MeshGrid className="inset-0 w-full h-full opacity-60" />
       <DotGrid className="top-20 left-10 w-[200px] h-[200px] opacity-30" />
-      <RingDecoration className="top-10 right-10 opacity-40" size={200} />
-      <CrossGrid className="bottom-40 left-20 opacity-30" />
-      <HexGrid className="bottom-20 right-20 opacity-50" />
-      <FloatingParticles className="z-0" />
 
-      <div className="max-w-7xl mx-auto w-full px-6 lg:px-8 py-8 md:py-16 lg:py-20 relative z-10">
+      <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6 md:py-8 lg:py-10 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left content */}
           <div className="relative z-10">
@@ -127,9 +123,9 @@ export function Hero() {
             </p>
           </div>
 
-          {/* Mobile social proof strip — visible only on mobile/tablet */}
+          {/* Mobile social proof strip — 2 pills to reduce clutter */}
           <div
-            className="flex lg:hidden items-center gap-6 flex-wrap"
+            className="flex lg:hidden items-center gap-4 flex-wrap"
             style={{
               opacity: mounted ? 1 : 0,
               transform: mounted ? "translateY(0)" : "translateY(16px)",
@@ -144,10 +140,6 @@ export function Hero() {
               <TrendingUp className="w-3.5 h-3.5 text-primary" aria-hidden="true" />
               <span className="text-xs font-medium text-foreground">Revenue +24% this month</span>
             </div>
-            <div className="flex items-center gap-2 bg-secondary border border-border rounded-full px-4 py-2">
-              <Users className="w-3.5 h-3.5 text-primary" aria-hidden="true" />
-              <span className="text-xs font-medium text-foreground">98% retention rate</span>
-            </div>
           </div>
 
           {/* Right visual — demo image with floating cards */}
@@ -159,9 +151,6 @@ export function Hero() {
               transition: "all 1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s",
             }}
           >
-            {/* Abstract ring behind image */}
-            <RingDecoration className="-top-10 -right-10 opacity-20" size={350} />
-
             <DemoImage
               src="/images/dashboard-demo.jpg"
               alt="Shaman Yantra dashboard showing revenue analytics and business insights"

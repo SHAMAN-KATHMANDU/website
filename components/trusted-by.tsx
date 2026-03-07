@@ -46,11 +46,11 @@ const platformStats = [
 
 export function TrustedBy() {
   return (
-    <section className="flex-1 min-h-0 flex flex-col py-6 md:py-10 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <section className="flex-1 min-h-0 flex flex-col py-6 md:py-8 lg:py-10 px-4 sm:px-6 lg:px-8 overflow-hidden">
       <div className="max-w-5xl mx-auto w-full flex flex-col flex-1 min-h-0">
         {/* Platform stats */}
         <motion.div
-          className="grid grid-cols-3 gap-3 sm:gap-6 max-w-2xl mx-auto mb-4 sm:mb-6 pb-4 sm:pb-6 border-b border-border"
+          className="grid grid-cols-3 gap-3 sm:gap-6 max-w-2xl mx-auto mb-6 sm:mb-8 pb-6 sm:pb-8 border-b border-border"
           variants={statsContainer}
           initial="hidden"
           whileInView="visible"
@@ -67,14 +67,14 @@ export function TrustedBy() {
         </motion.div>
 
         <Reveal>
-          <p className="text-center text-xs sm:text-sm text-muted-foreground mb-4 sm:mb-6">
+          <p className="text-center text-xs sm:text-sm text-muted-foreground mb-6 sm:mb-8">
             Trusted by leading Nepali businesses
           </p>
         </Reveal>
 
-        {/* Logos — tighter grid, smaller on mobile */}
+        {/* Logos — 2-row wrap with larger gaps on mobile */}
         <motion.div
-          className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 mb-4 sm:mb-6"
+          className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 md:gap-5 mb-6 sm:mb-8"
           variants={logoContainer}
           initial="hidden"
           whileInView="visible"
@@ -89,7 +89,7 @@ export function TrustedBy() {
                 filter: "grayscale(0%) brightness(1)",
                 transition: HOVER_SPRING,
               }}
-              className="flex items-center gap-2 sm:gap-3 px-3 sm:px-5 py-2 sm:py-3 rounded-lg sm:rounded-xl border border-border bg-background cursor-default select-none"
+              className="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl border border-border bg-background cursor-default select-none"
               style={{ filter: "grayscale(30%) brightness(0.9)", transition: "filter 0.3s ease" }}
               title={logo.name}
             >
@@ -108,7 +108,7 @@ export function TrustedBy() {
 
         {/* Stats */}
         <motion.div
-          className="flex flex-wrap items-center justify-center gap-2 sm:gap-3"
+          className="flex flex-wrap items-center justify-center gap-3 sm:gap-4"
           variants={statsContainer}
           initial="hidden"
           whileInView="visible"

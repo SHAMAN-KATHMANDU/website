@@ -38,7 +38,7 @@ const features = [
 
 export function FeaturesPreview() {
   return (
-    <section className="relative h-full min-h-0 flex flex-col py-6 md:py-10 px-4 sm:px-6 lg:px-8 bg-light-gray overflow-hidden">
+    <section className="relative h-full min-h-0 flex flex-col py-6 md:py-8 lg:py-10 px-4 sm:px-6 lg:px-8 bg-light-gray overflow-hidden">
       {/* Abstract background decorations */}
       <GradientOrb className="top-[-100px] right-[-100px]" color="rgba(16, 185, 129, 0.06)" size={500} />
       <AbstractLines className="top-20 left-0 opacity-40" />

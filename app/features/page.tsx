@@ -36,7 +36,7 @@ export default function FeaturesPage() {
 
         <div className="relative z-10">
           <Reveal>
-            <p className="text-sm font-medium text-primary mb-4">Platform Capabilities</p>
+            <p className="text-xs sm:text-sm font-medium text-primary mb-4">Platform Capabilities</p>
           </Reveal>
           <Reveal delay={1}>
             <h1 className="font-serif text-4xl sm:text-5xl lg:text-7xl text-foreground mb-6 text-balance leading-tight">
@@ -53,7 +53,7 @@ export default function FeaturesPage() {
       </section>
 
       {/* Main Features — card grid with See more */}
-      <section className="relative px-4 sm:px-6 lg:px-8 pb-16 sm:pb-24 overflow-hidden">
+      <section className="relative px-4 sm:px-6 lg:px-8 py-16 sm:py-20 overflow-hidden">
         <GradientOrb className="top-[200px] right-[-100px]" color="rgba(16, 185, 129, 0.04)" size={500} />
 
         <motion.div
@@ -125,15 +125,15 @@ export default function FeaturesPage() {
       </div>
 
       {/* Additional Features Grid — Dashboard */}
-      <section className="relative px-4 sm:px-6 lg:px-8 py-16 sm:py-24 bg-light-gray overflow-hidden">
+      <section className="relative px-4 sm:px-6 lg:px-8 py-16 sm:py-20 bg-light-gray overflow-hidden">
         <AbstractLines className="top-0 right-0 opacity-30" />
         <GradientOrb className="bottom-[-200px] left-[-100px]" color="rgba(16, 185, 129, 0.05)" size={500} />
 
         <div className="max-w-7xl mx-auto relative z-10">
           <Reveal>
-            <div className="text-center mb-12 sm:mb-16">
-              <p className="text-sm font-medium text-primary mb-4">And Much More</p>
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-foreground text-balance">
+            <div className="text-center mb-10 sm:mb-12">
+              <p className="text-xs sm:text-sm font-medium text-primary mb-4">And Much More</p>
+              <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl xl:text-5xl text-foreground text-balance">
                 Dashboard
               </h2>
             </div>

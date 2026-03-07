@@ -111,7 +111,7 @@ export default function TestimonialsPage() {
 
         <div className="relative z-10">
           <Reveal>
-            <p className="text-sm font-medium text-primary mb-4">What Businesses Say</p>
+            <p className="text-xs sm:text-sm font-medium text-primary mb-4">What Businesses Say</p>
           </Reveal>
           <Reveal delay={1}>
             <h1 className="font-serif text-4xl sm:text-5xl lg:text-7xl text-foreground mb-6 text-balance leading-tight">
@@ -128,7 +128,7 @@ export default function TestimonialsPage() {
       </section>
 
       {/* Stats — staggered entrance + hover scale */}
-      <section className="relative px-4 sm:px-6 lg:px-8 pb-16 sm:pb-20 overflow-hidden">
+      <section className="relative px-4 sm:px-6 lg:px-8 py-16 sm:py-20 overflow-hidden">
         <CrossGrid className="top-0 right-20 opacity-15" />
         <motion.div
           className="max-w-5xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 relative z-10"
@@ -165,7 +165,7 @@ export default function TestimonialsPage() {
       </div>
 
       {/* Testimonials Grid — staggered + hover lift */}
-      <section className="relative px-4 sm:px-6 lg:px-8 py-16 sm:py-24 overflow-hidden">
+      <section className="relative px-4 sm:px-6 lg:px-8 py-16 sm:py-20 overflow-hidden">
         <WaveDecoration className="top-0 left-0 opacity-60" />
         <GradientOrb className="top-[200px] left-[-200px]" color="rgba(16, 185, 129, 0.04)" size={500} />
         <AbstractLines className="bottom-0 right-0 opacity-20" />

@@ -65,7 +65,7 @@ const milestones = [
 
 export function Roadmap() {
   return (
-    <section className="relative h-full min-h-0 flex flex-col py-6 md:py-10 px-4 sm:px-6 lg:px-8 bg-background bg-grid overflow-hidden">
+    <section className="relative h-full min-h-0 flex flex-col py-6 md:py-8 lg:py-10 px-4 sm:px-6 lg:px-8 bg-background bg-grid overflow-hidden">
       <GradientOrb className="top-[-100px] right-[-100px]" color="rgba(16, 185, 129, 0.06)" size={500} />
       <DotGrid className="bottom-10 left-10 w-[180px] h-[180px] opacity-20" />
       <CrossGrid className="top-40 left-20 opacity-15" />
@@ -82,11 +82,11 @@ export function Roadmap() {
           </Reveal>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 flex-1 min-h-0 content-start">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 flex-1 min-h-0 content-start">
           {milestones.map((m, i) => (
             <Reveal key={m.label} delay={i} direction="scale">
               <div
-                className={`rounded-xl sm:rounded-2xl p-4 sm:p-6 border h-full flex flex-col transition-all duration-300 min-h-0 ${
+                className={`rounded-xl sm:rounded-2xl p-5 sm:p-6 border h-full flex flex-col transition-all duration-300 min-h-0 ${
                   m.status === "now"
                     ? "bg-navy text-white border-primary shadow-xl shadow-navy/10 ring-2 ring-primary ring-offset-2"
                     : "bg-background border-border hover:border-primary/20 hover:shadow-md"
@@ -121,20 +121,20 @@ export function Roadmap() {
                 </h3>
 
                 <p
-                  className={`text-xs sm:text-sm leading-relaxed mb-3 flex-1 line-clamp-2 min-h-0 ${
+                  className={`text-xs sm:text-sm leading-relaxed mb-3 flex-1 line-clamp-3 min-h-0 ${
                     m.status === "now" ? "text-white/60" : "text-muted-foreground"
                   }`}
                 >
                   {m.desc}
                 </p>
 
-                <ul className="space-y-1 flex-1 min-h-0 overflow-hidden">
-                  {m.features.slice(0, 4).map((f) => (
+                <ul className="space-y-1.5 flex-1 min-h-0 overflow-hidden">
+                  {m.features.slice(0, 4).map((f, fi) => (
                     <li
                       key={f}
                       className={`flex items-start gap-1.5 text-[10px] sm:text-xs ${
                         m.status === "now" ? "text-white/70" : "text-muted-foreground"
-                      }`}
+                      } ${fi === 3 ? "hidden sm:flex" : ""}`}
                     >
                       <span
                         className={`w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full mt-1 sm:mt-1.5 shrink-0 ${

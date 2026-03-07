@@ -177,7 +177,7 @@ export default function PricingPage() {
             transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
             <Reveal>
-              <p className="text-sm font-medium text-primary mb-4">Transparent Pricing</p>
+              <p className="text-xs sm:text-sm font-medium text-primary mb-4">Transparent Pricing</p>
             </Reveal>
             <Reveal delay={1}>
               <h1 className="font-serif text-4xl sm:text-5xl lg:text-7xl text-foreground mb-6 text-balance leading-tight">
@@ -247,7 +247,7 @@ export default function PricingPage() {
       </Reveal>
 
       {/* Pricing Cards — staggered entrance + hover lift */}
-      <section className="px-4 sm:px-6 lg:px-8 pb-16 sm:pb-24">
+      <section className="px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
         <div className="max-w-7xl mx-auto">
         <motion.div
           className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 sm:gap-6"
@@ -362,7 +362,7 @@ export default function PricingPage() {
       </div>
 
       {/* Comparison Table — card container */}
-      <section className="px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+      <section className="px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
         <div className="max-w-7xl mx-auto">
           <motion.div
             className="rounded-2xl border border-border bg-background shadow-sm overflow-hidden"
@@ -374,8 +374,8 @@ export default function PricingPage() {
           <div className="p-8 sm:p-10 bg-light-gray border-b border-border">
           <Reveal>
             <div>
-              <p className="text-sm font-medium text-primary mb-4">Full Feature Breakdown</p>
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-foreground text-balance">
+              <p className="text-xs sm:text-sm font-medium text-primary mb-4">Full Feature Breakdown</p>
+              <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl xl:text-5xl text-foreground text-balance">
                 Compare every feature side by side
               </h2>
             </div>
@@ -524,12 +524,12 @@ export default function PricingPage() {
       </div>
 
       {/* Add-ons */}
-      <section className="px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+      <section className="px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
         <div className="max-w-7xl mx-auto">
           <Reveal>
             <div className="mb-10 sm:mb-12">
-              <p className="text-sm font-medium text-primary mb-3">Add-On Services</p>
-              <h2 className="font-serif text-3xl sm:text-4xl text-foreground text-balance">
+              <p className="text-xs sm:text-sm font-medium text-primary mb-3">Add-On Services</p>
+              <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl xl:text-5xl text-foreground text-balance">
                 Extend your plan as needed
               </h2>
             </div>
@@ -569,12 +569,12 @@ export default function PricingPage() {
       </div>
 
       {/* FAQ Section */}
-      <section id="trial" className="px-4 sm:px-6 lg:px-8 py-16 sm:py-24 bg-background">
+      <section id="trial" className="px-4 sm:px-6 lg:px-8 py-16 sm:py-20 bg-background">
         <div className="max-w-3xl mx-auto">
           <Reveal>
-            <div className="text-center mb-12">
-              <p className="text-sm font-medium text-primary mb-4">Common Questions</p>
-              <h2 className="font-serif text-3xl sm:text-4xl text-foreground text-balance">
+            <div className="text-center mb-10 sm:mb-12">
+              <p className="text-xs sm:text-sm font-medium text-primary mb-4">Common Questions</p>
+              <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl xl:text-5xl text-foreground text-balance">
                 Frequently asked questions
               </h2>
             </div>
