@@ -4,19 +4,19 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 import { ArrowRight, TrendingUp, ShoppingCart, Users } from "lucide-react"
 import { GradientOrb, DotGrid, RingDecoration, CrossGrid, FloatingParticles, DemoImage, MeshGrid, HexGrid } from "./abstract-elements"
-import { motion } from "framer-motion"
+import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion"
 
-function FloatingCard({ children, className, delay }: { children: React.ReactNode; className?: string; delay: number }) {
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
-
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)")
-    setPrefersReducedMotion(mq.matches)
-    const handler = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches)
-    mq.addEventListener("change", handler)
-    return () => mq.removeEventListener("change", handler)
-  }, [])
-
+function FloatingCard({
+  children,
+  className,
+  delay,
+  prefersReducedMotion,
+}: {
+  children: React.ReactNode
+  className?: string
+  delay: number
+  prefersReducedMotion: boolean
+}) {
   return (
     <div
       className={`absolute bg-background rounded-xl shadow-lg border border-border p-4 ${className}`}
@@ -33,10 +33,11 @@ function FloatingCard({ children, className, delay }: { children: React.ReactNod
 
 export function Hero() {
   const [mounted, setMounted] = useState(false)
+  const prefersReducedMotion = usePrefersReducedMotion()
   useEffect(() => { setMounted(true) }, [])
 
   return (
-    <section className="relative h-full min-h-0 flex flex-col justify-center overflow-hidden bg-background bg-grid">
+    <section className="relative h-full min-h-0 flex flex-col justify-center overflow-hidden bg-background bg-grid isolate">
       {/* Abstract background elements */}
       <GradientOrb className="top-[-200px] right-[-100px]" color="rgba(16, 185, 129, 0.08)" size={800} />
       <GradientOrb className="bottom-[-300px] left-[-200px]" color="rgba(16, 185, 129, 0.05)" size={600} />
@@ -165,10 +166,11 @@ export function Hero() {
               src="/images/dashboard-demo.jpg"
               alt="Shaman Yantra dashboard showing revenue analytics and business insights"
               className="w-full max-w-[520px]"
+              priority
             />
 
             {/* Floating stat card — top-left */}
-            <FloatingCard className="-left-8 top-4 z-20" delay={0}>
+            <FloatingCard className="-left-8 top-4 z-20" delay={0} prefersReducedMotion={prefersReducedMotion}>
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center">
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
@@ -183,7 +185,7 @@ export function Hero() {
             </FloatingCard>
 
             {/* Floating stat card — bottom-right */}
-            <FloatingCard className="-right-4 bottom-12 z-20" delay={1.5}>
+            <FloatingCard className="-right-4 bottom-12 z-20" delay={1.5} prefersReducedMotion={prefersReducedMotion}>
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
                   <span className="text-primary text-sm font-bold">98%</span>
@@ -196,7 +198,7 @@ export function Hero() {
             </FloatingCard>
 
             {/* Floating mini chart card — bottom-left */}
-            <FloatingCard className="-left-4 bottom-0 z-20" delay={2.5}>
+            <FloatingCard className="-left-4 bottom-0 z-20" delay={2.5} prefersReducedMotion={prefersReducedMotion}>
               <div className="flex items-center gap-2">
                 <div className="flex gap-[2px] items-end h-6" aria-hidden="true">
                   {[40, 60, 35, 80, 55, 90, 70].map((h, i) => (

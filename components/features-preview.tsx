@@ -73,14 +73,15 @@ export function FeaturesPreview() {
             const Icon = f.icon
             return (
               <Reveal key={f.label} delay={i} direction="scale">
-                <div className="bg-background rounded-xl sm:rounded-2xl border border-border group hover:border-primary/20 hover:shadow-lg transition-all duration-500 h-full overflow-hidden flex flex-col">
+                <div className="bg-background rounded-xl sm:rounded-2xl border border-border group hover:border-primary/20 hover:shadow-lg transition-all duration-300 h-full overflow-hidden flex flex-col">
                   <div className="relative h-28 sm:h-36 lg:h-40 overflow-hidden bg-muted shrink-0">
                     <Image
                       src={f.image}
                       alt={`${f.title} demo screenshot`}
                       fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-700"
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
                       sizes="(max-width: 768px) 100vw, 33vw"
+                      priority={i === 0}
                     />
                     <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/10 pointer-events-none" />
                     <div className="absolute top-2 left-2 sm:top-3 sm:left-3">

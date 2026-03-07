@@ -26,18 +26,17 @@ export const HorizontalCard = forwardRef<HTMLElement, HorizontalCardProps>(
         role="region"
         aria-label={label}
         className="horizontal-card"
-        style={{ overscrollBehavior: "contain auto" }}
       >
         {/* Animate in once when card scrolls into view — no animate-out, no key re-mount */}
         <motion.div
           ref={innerRef}
-          initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 18 }}
+          initial={reduceMotion ? false : { opacity: 0, y: 12 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{
-            duration: reduceMotion ? 0.1 : 0.5,
+            duration: reduceMotion ? 0.1 : 0.4,
             ease: [0.25, 0.46, 0.45, 0.94],
           }}
-          style={{ height: "100%", width: "100%", willChange: "opacity, transform" }}
+          style={{ height: "100%", width: "100%" }}
         >
           {children}
         </motion.div>

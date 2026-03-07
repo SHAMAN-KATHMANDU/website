@@ -38,12 +38,11 @@ export function Reveal({
       animate={isInView ? "visible" : "hidden"}
       variants={{ hidden, visible }}
       transition={{
-        duration: reduceMotion ? 0.1 : 0.6,
+        duration: reduceMotion ? 0.1 : 0.5,
         ease: [0.25, 0.46, 0.45, 0.94],
-        delay: delay * 0.1,
+        delay: delay * 0.08,
       }}
       className={className}
-      style={{ willChange: "opacity, transform" }}
     >
       {children}
     </motion.div>

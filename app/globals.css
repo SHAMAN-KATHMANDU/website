@@ -173,12 +173,24 @@
     @apply outline-ring/50 outline-2 outline-offset-2;
   }
   html {
-    /* scroll-behavior: smooth removed — conflicts with JS-controlled horizontal deck scrollTo() */
     scrollbar-gutter: stable;
   }
   body {
     @apply bg-background text-foreground;
     overflow-x: hidden;
+  }
+  /* When homepage deck is present: lock layout to prevent scroll/overflow glitches */
+  main:has(.horizontal-deck-wrapper) {
+    height: 100vh;
+    min-height: 100vh;
+    overflow: hidden;
+    position: relative;
+  }
+  @media (max-width: 767px) {
+    main:has(.horizontal-deck-wrapper) {
+      height: 100dvh;
+      min-height: 100dvh;
+    }
   }
   ::selection {
     background: rgba(16, 185, 129, 0.15);
@@ -218,6 +230,11 @@
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
 }
 
+/* Decorative elements — limit repaint scope */
+.deco-contain {
+  contain: paint;
+}
+
 /* Hide scrollbar utility */
 .scrollbar-none {
   scrollbar-width: none;
@@ -237,14 +254,11 @@
   overflow-x: scroll;
   overflow-y: hidden;
   scroll-snap-type: x mandatory;
-  /* scroll-behavior is set via JS scrollTo({ behavior }) — not here, to avoid conflicts */
   -webkit-overflow-scrolling: touch;
   touch-action: pan-x;
-  /* Hide the horizontal scrollbar across all browsers */
   scrollbar-width: none;
   -ms-overflow-style: none;
-  /* GPU layer promotion for the scroll container */
-  will-change: scroll-position;
+  contain: layout style;
 }
 .horizontal-deck::-webkit-scrollbar {
   display: none;
@@ -259,8 +273,7 @@
   overflow: hidden;
   position: relative;
   overscroll-behavior: contain;
-  /* GPU layer hint — card shell stays on compositor, no layout thrashing */
-  will-change: transform, opacity;
+  contain: layout style paint;
 }
 
 /* Horizontal deck and cards use dvh for correct full-screen on mobile */
@@ -282,6 +295,7 @@
   height: 100vh;
   overflow: hidden;
   position: relative;
+  contain: layout style;
 }
 
 /* Shimmer skeleton animation — used by loading.tsx files */

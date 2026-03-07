@@ -22,20 +22,20 @@ const stats = [
 
 const logoContainer = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.07, delayChildren: 0.1 } },
+  visible: { transition: { staggerChildren: 0.05, delayChildren: 0.05 } },
 }
 const logoItem = {
-  hidden: { opacity: 0, scale: 0.9, y: 10 },
-  visible: { opacity: 1, scale: 1, y: 0, transition: { type: "tween" as const, duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] } },
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] as const } },
 }
 
 const statsContainer = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.1, delayChildren: 0.1 } },
+  visible: { transition: { staggerChildren: 0.06, delayChildren: 0.05 } },
 }
 const statsItem = {
-  hidden: { opacity: 0, y: 12 },
-  visible: { opacity: 1, y: 0, transition: { type: "tween" as const, duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] } },
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] as const } },
 }
 
 const platformStats = [
@@ -118,7 +118,7 @@ export function TrustedBy() {
             <motion.div
               key={s.label}
               variants={statsItem}
-              whileHover={{ scale: 1.06, y: -2, transition: HOVER_SPRING }}
+              whileHover={{ scale: 1.04, transition: HOVER_SPRING }}
               className="flex items-center gap-2 bg-secondary border border-border rounded-full px-3 sm:px-5 py-1.5 sm:py-2.5"
             >
               <span className="text-xs sm:text-sm font-semibold text-foreground">{s.value}</span>

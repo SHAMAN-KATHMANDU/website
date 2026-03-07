@@ -54,47 +54,48 @@ export function useHorizontalScroll({
     [containerRef]
   )
 
-  // Wheel → horizontal card navigation (with throttle + accumulation to prevent jumpy section changes)
+  // Wheel → horizontal card navigation (throttle + accumulation)
   useEffect(() => {
     const container = containerRef.current
     if (!container) return
 
     let lastWheelTime = 0
     let accumulatedDelta = 0
-    const THROTTLE_MS = 1400 // prevent rapid multi-card skips
-    const DELTA_THRESHOLD = 90 // require this much scroll before advancing to next card
+    let rafId: number | null = null
+    const THROTTLE_MS = 600
+    const DELTA_THRESHOLD = 60
 
     const onWheel = (e: WheelEvent) => {
-      // Only intercept vertical-dominant wheel events
       if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return
-
-      // Let native vertical scroll handle events inside scrollable children
       if (isInsideVerticalScroller(e.target, e.deltaY)) return
 
       e.preventDefault()
 
       const now = Date.now()
-      // Reset accumulation when direction changes or after throttle period
-      if (now - lastWheelTime > THROTTLE_MS) {
-        accumulatedDelta = 0
-      }
+      if (now - lastWheelTime > THROTTLE_MS) accumulatedDelta = 0
       accumulatedDelta += e.deltaY
       lastWheelTime = now
 
       if (Math.abs(accumulatedDelta) >= DELTA_THRESHOLD) {
-        if (accumulatedDelta > 0 && activeIndex < cardCount - 1) {
-          scrollToCard(activeIndex + 1)
-          accumulatedDelta = 0
-        } else if (accumulatedDelta < 0 && activeIndex > 0) {
-          scrollToCard(activeIndex - 1)
-          accumulatedDelta = 0
-        }
+        const direction = accumulatedDelta > 0 ? 1 : -1
+        accumulatedDelta = 0
+        if (rafId) cancelAnimationFrame(rafId)
+        rafId = requestAnimationFrame(() => {
+          rafId = null
+          if (direction > 0 && activeIndex < cardCount - 1) {
+            scrollToCard(activeIndex + 1)
+          } else if (direction < 0 && activeIndex > 0) {
+            scrollToCard(activeIndex - 1)
+          }
+        })
       }
     }
 
-    // passive:false required to call preventDefault()
     container.addEventListener("wheel", onWheel, { passive: false })
-    return () => container.removeEventListener("wheel", onWheel)
+    return () => {
+      container.removeEventListener("wheel", onWheel)
+      if (rafId) cancelAnimationFrame(rafId)
+    }
   }, [containerRef, activeIndex, cardCount, scrollToCard, isInsideVerticalScroller])
 
   // Keyboard navigation

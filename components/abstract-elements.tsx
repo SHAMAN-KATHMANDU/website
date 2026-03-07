@@ -14,7 +14,7 @@ export function GradientOrb({
 }) {
   return (
     <div
-      className={`absolute pointer-events-none ${className}`}
+      className={`absolute pointer-events-none deco-contain ${className}`}
       style={{
         width: size,
         height: size,
@@ -70,7 +70,8 @@ export function FloatingParticles({ className = "" }: { className?: string }) {
     window.addEventListener("resize", resize, { passive: true })
 
     const particles: { x: number; y: number; r: number; vx: number; vy: number; o: number }[] = []
-    const count = 30
+    const isMobile = window.innerWidth < 768
+    const count = isMobile ? 12 : 24
     const rect = canvas.getBoundingClientRect()
     for (let i = 0; i < count; i++) {
       particles.push({
@@ -116,7 +117,7 @@ export function FloatingParticles({ className = "" }: { className?: string }) {
   return (
     <canvas
       ref={canvasRef}
-      className={`absolute inset-0 pointer-events-none ${className}`}
+      className={`absolute inset-0 pointer-events-none deco-contain ${className}`}
       aria-hidden="true"
     />
   )
@@ -290,26 +291,34 @@ export function DemoImage({
   src,
   alt,
   className = "",
+  priority = false,
 }: {
   src: string
   alt: string
   className?: string
+  priority?: boolean
 }) {
   const [imgFailed, setImgFailed] = useState(false)
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
+
+  useEffect(() => {
+    setPrefersReducedMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches)
+  }, [])
 
   return (
     <div
       className={`relative rounded-2xl overflow-hidden shadow-2xl border border-border/60 ${className}`}
-      style={{
-        animation: "float 6s ease-in-out infinite",
-      }}
+      style={
+        prefersReducedMotion ? undefined : { animation: "float 6s ease-in-out infinite" }
+      }
     >
       {!imgFailed ? (
         <img
           src={src}
           alt={alt}
           className="w-full h-auto object-cover"
-          loading="lazy"
+          loading={priority ? "eager" : "lazy"}
+          fetchPriority={priority ? "high" : undefined}
           onError={() => setImgFailed(true)}
         />
       ) : (

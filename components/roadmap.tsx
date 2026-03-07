@@ -86,7 +86,7 @@ export function Roadmap() {
           {milestones.map((m, i) => (
             <Reveal key={m.label} delay={i} direction="scale">
               <div
-                className={`rounded-xl sm:rounded-2xl p-4 sm:p-6 border h-full flex flex-col transition-all duration-500 min-h-0 ${
+                className={`rounded-xl sm:rounded-2xl p-4 sm:p-6 border h-full flex flex-col transition-all duration-300 min-h-0 ${
                   m.status === "now"
                     ? "bg-navy text-white border-primary shadow-xl shadow-navy/10 ring-2 ring-primary ring-offset-2"
                     : "bg-background border-border hover:border-primary/20 hover:shadow-md"

@@ -57,7 +57,6 @@ export function CtaSection() {
           <motion.div
             whileHover={{ scale: 1.04, y: -2, transition: HOVER_SPRING }}
             whileTap={{ scale: 0.97 }}
-            style={{ willChange: "transform" }}
           >
             <Link
               href="/pricing"
@@ -71,7 +70,6 @@ export function CtaSection() {
           <motion.div
             whileHover={{ scale: 1.03, y: -1, transition: HOVER_SPRING }}
             whileTap={{ scale: 0.97 }}
-            style={{ willChange: "transform" }}
           >
             <Link
               href="/features"

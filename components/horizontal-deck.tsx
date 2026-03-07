@@ -39,8 +39,8 @@ export function HorizontalDeck({ children }: HorizontalDeckProps) {
   const toastTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const reduceMotion = useReducedMotion() ?? false
 
-  // Lock html and body scroll on homepage so only horizontal deck scroll is active
-  useEffect(() => {
+  // Lock html and body scroll before paint to prevent flash/glitch
+  useLayoutEffect(() => {
     const html = document.documentElement
     const body = document.body
     html.style.overflow = "hidden"
@@ -95,25 +95,39 @@ export function HorizontalDeck({ children }: HorizontalDeckProps) {
     [cardCount, reduceMotion]
   )
 
-  // IntersectionObserver — detects which card is snapped into view
+  // IntersectionObserver — detects which card is snapped, throttled via rAF
   useEffect(() => {
     const container = containerRef.current
     if (!container) return
+    let rafPending: number | null = null
+    let pendingIndex: number | null = null
     const observers: IntersectionObserver[] = []
+
+    const flush = () => {
+      rafPending = null
+      if (pendingIndex !== null) {
+        setActiveIndex(pendingIndex)
+        pendingIndex = null
+      }
+    }
+
     cardRefs.current.forEach((card, i) => {
       if (!card) return
       const obs = new IntersectionObserver(
         ([entry]) => {
-          if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
-            setActiveIndex(i)
-          }
+          if (!entry.isIntersecting || entry.intersectionRatio < 0.6) return
+          pendingIndex = i
+          if (rafPending === null) rafPending = requestAnimationFrame(flush)
         },
         { root: container, threshold: 0.6 }
       )
       obs.observe(card)
       observers.push(obs)
     })
-    return () => observers.forEach((obs) => obs.disconnect())
+    return () => {
+      observers.forEach((o) => o.disconnect())
+      if (rafPending !== null) cancelAnimationFrame(rafPending)
+    }
   }, [cardCount])
 
   // Toast label on card change (skip first mount)
@@ -127,18 +141,6 @@ export function HorizontalDeck({ children }: HorizontalDeckProps) {
     toastTimerRef.current = setTimeout(() => setToastLabel(null), 1500)
     return () => { if (toastTimerRef.current) clearTimeout(toastTimerRef.current) }
   }, [activeIndex]) // eslint-disable-line react-hooks/exhaustive-deps
-
-  // Focus management: first interactive element in new card
-  useEffect(() => {
-    const card = cardRefs.current[activeIndex]
-    if (!card) return
-    requestAnimationFrame(() => {
-      const focusable = card.querySelector<HTMLElement>(
-        'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])'
-      )
-      focusable?.focus({ preventScroll: true })
-    })
-  }, [activeIndex])
 
   // Deep-link: scroll to card matching hash on mount
   useLayoutEffect(() => {
@@ -173,7 +175,7 @@ export function HorizontalDeck({ children }: HorizontalDeckProps) {
 
   return (
     <div className="horizontal-deck-wrapper">
-      {/* Progress bar — GPU-composited, spring-smoothed */}
+      {/* Progress bar — spring-smoothed */}
       <motion.div
         aria-hidden="true"
         style={{
@@ -186,7 +188,6 @@ export function HorizontalDeck({ children }: HorizontalDeckProps) {
           transformOrigin: "left center",
           scaleX: progressSpring,
           zIndex: 60,
-          willChange: "transform",
         }}
       />
 
@@ -209,7 +210,6 @@ export function HorizontalDeck({ children }: HorizontalDeckProps) {
             onClick={() => scrollToCard(activeIndex - 1)}
             aria-label="Previous section"
             className="hidden md:flex absolute left-5 top-1/2 -translate-y-1/2 z-50 w-10 h-10 items-center justify-center rounded-full bg-background/80 backdrop-blur-sm border border-border shadow-md text-foreground hover:bg-background transition-colors"
-            style={{ willChange: "transform" }}
           >
             <ChevronLeft className="w-5 h-5" />
           </motion.button>
@@ -237,113 +237,68 @@ export function HorizontalDeck({ children }: HorizontalDeckProps) {
         )}
       </AnimatePresence>
 
-      {/* Nav dots — stagger in on mount, active pill uses layoutId for smooth morph; 44px touch target on mobile; safe area on mobile */}
-      <motion.div
+      {/* Nav dots — simple CSS transitions, 44px touch target on mobile */}
+      <div
         role="tablist"
         aria-label="Navigate sections"
         className="absolute left-1/2 -translate-x-1/2 z-50 flex items-center gap-1.5 sm:gap-2"
         style={{ bottom: "calc(1.5rem + env(safe-area-inset-bottom, 0px))" }}
-        initial="hidden"
-        animate="visible"
-        variants={{
-          hidden: {},
-          visible: { transition: { staggerChildren: 0.05, delayChildren: 0.15 } },
-        }}
       >
         {cards.map((child, i) => {
           const label = getCardLabel(child)
           const isActive = i === activeIndex
           return (
-            <motion.button
+            <button
               key={i}
+              type="button"
               role="tab"
               aria-selected={isActive}
               aria-controls={getCardId(child)}
               aria-label={`Go to section: ${label}`}
               title={label}
               onClick={() => scrollToCard(i)}
-              variants={{ hidden: { opacity: 0, y: 8 }, visible: { opacity: 1, y: 0 } }}
-              className="relative flex items-center justify-center w-11 h-11 min-w-[44px] min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-full"
-              style={{
-                background: "transparent",
-                border: "none",
-                padding: 0,
-                cursor: "pointer",
-                willChange: "transform",
-              }}
+              className="relative flex items-center justify-center w-11 h-11 min-w-[44px] min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-full bg-transparent border-none p-0 cursor-pointer"
             >
               <span
-                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full transition-[width] duration-300 ease-out"
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-200 ease-out"
                 style={{
                   width: isActive ? 28 : 10,
                   height: 10,
-                  background: "rgba(11, 22, 40, 0.28)",
+                  background: isActive ? "var(--foreground)" : "rgba(11, 22, 40, 0.28)",
                 }}
               />
-              {isActive && (
-                <motion.span
-                  layoutId="active-dot"
-                  className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-foreground"
-                  style={{ width: 28, height: 10 }}
-                  transition={{ type: "spring", stiffness: 380, damping: 28 }}
-                />
-              )}
-            </motion.button>
+            </button>
           )
         })}
-      </motion.div>
+      </div>
 
-      {/* Mobile swipe hint — shown once on first visit */}
-      <AnimatePresence>
-        {showSwipeHint && !reduceMotion && (
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 8 }}
-            transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="absolute left-1/2 -translate-x-1/2 z-50 pointer-events-none md:hidden"
-            style={{ bottom: "calc(5rem + env(safe-area-inset-bottom, 0px))" }}
-            aria-hidden="true"
-          >
-            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-foreground/85 text-background backdrop-blur-sm text-xs font-medium">
-              <motion.span
-                animate={{ x: [0, 8, 0] }}
-                transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
-              >
-                ←
-              </motion.span>
-              Swipe to explore
-              <motion.span
-                animate={{ x: [0, -8, 0] }}
-                transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
-              >
-                →
-              </motion.span>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Mobile swipe hint — shown once on first visit, no heavy animation */}
+      {showSwipeHint && !reduceMotion && (
+        <div
+          className="absolute left-1/2 -translate-x-1/2 z-50 pointer-events-none md:hidden animate-in fade-in duration-300"
+          style={{ bottom: "calc(5rem + env(safe-area-inset-bottom, 0px))" }}
+          aria-hidden="true"
+        >
+          <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-foreground/85 text-background backdrop-blur-sm text-xs font-medium">
+            ← Swipe to explore →
+          </div>
+        </div>
+      )}
 
-      {/* Card label toast */}
-      <AnimatePresence>
-        {toastLabel && (
-          <motion.div
-            key={toastLabel}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -6 }}
-            transition={{ duration: 0.22, ease: [0.25, 0.46, 0.45, 0.94] }}
-            aria-live="polite"
-            aria-atomic="true"
-            className="absolute left-1/2 -translate-x-1/2 z-50 pointer-events-none"
-            style={{ bottom: "calc(4rem + env(safe-area-inset-bottom, 0px))" }}
-          >
-            <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-foreground/90 text-background backdrop-blur-sm">
-              {toastLabel}
-            </span>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Card label toast — simple opacity */}
+      {toastLabel && (
+        <div
+          key={toastLabel}
+          aria-live="polite"
+          aria-atomic="true"
+          className="absolute left-1/2 -translate-x-1/2 z-50 pointer-events-none animate-in fade-in duration-200"
+          style={{ bottom: "calc(4rem + env(safe-area-inset-bottom, 0px))" }}
+        >
+          <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-foreground/90 text-background backdrop-blur-sm">
+            {toastLabel}
+          </span>
+        </div>
+      )}
     </div>
   )
 }
