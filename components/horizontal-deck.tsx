@@ -39,11 +39,15 @@ export function HorizontalDeck({ children }: HorizontalDeckProps) {
   const toastTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const reduceMotion = useReducedMotion() ?? false
 
-  // Lock body scroll on homepage so only horizontal deck scroll is active
+  // Lock html and body scroll on homepage so only horizontal deck scroll is active
   useEffect(() => {
-    document.body.style.overflow = "hidden"
+    const html = document.documentElement
+    const body = document.body
+    html.style.overflow = "hidden"
+    body.style.overflow = "hidden"
     return () => {
-      document.body.style.overflow = ""
+      html.style.overflow = ""
+      body.style.overflow = ""
     }
   }, [])
 

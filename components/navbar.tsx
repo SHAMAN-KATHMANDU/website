@@ -36,11 +36,14 @@ export function Navbar() {
   useEffect(() => {
     if (mobileOpen) {
       document.body.style.overflow = "hidden"
-    } else {
+    } else if (pathname !== "/") {
+      // On homepage, HorizontalDeck owns body overflow — don't override
       document.body.style.overflow = ""
     }
-    return () => { document.body.style.overflow = "" }
-  }, [mobileOpen])
+    return () => {
+      if (pathname !== "/") document.body.style.overflow = ""
+    }
+  }, [mobileOpen, pathname])
 
   return (
     <nav
