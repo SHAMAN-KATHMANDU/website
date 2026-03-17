@@ -2,6 +2,7 @@
 
 import { useReducedMotion, motion, useInView } from "framer-motion"
 import { forwardRef, useRef } from "react"
+import { ease } from "@/lib/motion"
 
 interface HorizontalCardProps {
   id: string
@@ -34,7 +35,7 @@ export const HorizontalCard = forwardRef<HTMLElement, HorizontalCardProps>(
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{
             duration: reduceMotion ? 0.1 : 0.4,
-            ease: [0.25, 0.46, 0.45, 0.94],
+            ease: ease.ios,
           }}
           style={{ height: "100%", width: "100%" }}
         >

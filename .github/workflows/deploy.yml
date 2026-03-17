@@ -1,8 +1,16 @@
 name: Deploy to Cloudflare Pages
 
 on:
-  push:
-    branches: [main]
+  workflow_dispatch:
+    inputs:
+      coming_soon:
+        description: "Set to 'true' for Coming Soon page only; 'false' or unset for full site"
+        required: false
+        default: "false"
+        type: choice
+        options:
+          - "false"
+          - "true"
 
 jobs:
   deploy:
@@ -31,6 +39,8 @@ jobs:
 
       - name: Build
         run: pnpm run build
+        env:
+          NEXT_PUBLIC_COMING_SOON: ${{ inputs.coming_soon }}
 
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3

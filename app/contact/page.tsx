@@ -6,8 +6,7 @@ import { CtaSection } from "@/components/cta-section"
 import { GradientOrb, DotGrid, RingDecoration } from "@/components/abstract-elements"
 import { Mail, Phone, MapPin } from "lucide-react"
 import Link from "next/link"
-
-const HOVER_SPRING = { type: "spring" as const, stiffness: 300, damping: 24 }
+import { spring, stagger } from "@/lib/motion"
 
 const contactCards = [
   {
@@ -35,16 +34,11 @@ const contactCards = [
 
 const cardContainer = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.1, delayChildren: 0.1 } },
+  visible: { transition: stagger.normal },
 }
 const cardItem = {
-  hidden: { opacity: 0, y: 24, scale: 0.97 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { type: "tween" as const, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] },
-  },
+  hidden: { opacity: 0, y: 16, scale: 0.97 },
+  visible: { opacity: 1, y: 0, scale: 1, transition: spring.gentle },
 }
 
 export default function ContactPage() {
@@ -95,7 +89,7 @@ export default function ContactPage() {
                   y: -6,
                   boxShadow: "0 24px 48px rgba(0,0,0,0.08)",
                   borderColor: "rgba(16,185,129,0.2)",
-                  transition: HOVER_SPRING,
+                  transition: spring.snappy,
                 }}
                 className="bg-background rounded-2xl border border-border p-7 sm:p-8 h-full flex flex-col"
               >

@@ -4,9 +4,50 @@ import React, { useState } from "react"
 import { motion } from "framer-motion"
 import Image from "next/image"
 import { Mail, Linkedin, Pause, Play } from "lucide-react"
+import { spring, ease } from "@/lib/motion"
 
 /* ── Team data ── */
 const TEAM = [
+  {
+    name: "Deepak Raj Pandey",
+    role: "Founder",
+    image: "https://api.dicebear.com/7.x/personas/svg?seed=DeepakPandey&backgroundColor=d1fae5",
+    bio: "Founder & Visionary behind Shaman Kathmandu & Shaman Yantra — built from the ground up, connecting Nepali craftsmanship, spirituality, and evolving technology into ventures serving both local and global markets. 30+ years of business and a resilient journey. Ecosystem Builder (1000+ individuals impacted). Multi-Industry Investor. Spiritual Practitioner & Human-Centered Leader. Globally Exposed, Locally Grounded.",
+    email: "deepak@shamanyantra.com",
+    linkedin: "https://linkedin.com",
+    gradientFrom: "#10B981",
+    gradientTo: "#34D399",
+  },
+  {
+    name: "Subhashish Jung Shah",
+    role: "Head of Technology & AI",
+    image: "https://api.dicebear.com/7.x/personas/svg?seed=SubhashishShah&backgroundColor=ede9fe",
+    bio: "Specialises in Web3, blockchain, and AI — with a deep understanding of decentralised systems and the kind of obsession with emerging technology that only comes from building in it, not just reading about it. Focused on real-world outcomes: not technology for its own sake, but frontier tools applied to actual business problems.",
+    email: "subhashish@shamanyantra.com",
+    linkedin: "https://linkedin.com",
+    gradientFrom: "#8B5CF6",
+    gradientTo: "#A78BFA",
+  },
+  {
+    name: "Anayas Chandra Gurung",
+    role: "Strategy & Marketing",
+    image: "https://api.dicebear.com/7.x/personas/svg?seed=AnayasGurung&backgroundColor=ccfbf1",
+    bio: "Has worked with 100+ businesses across retail, hospitality, automotive, fashion, tech, and real estate in Nepal. Scaled a clothing brand from NPR 20L to NPR 1Cr in 9 months. Partnered with a leading 2-wheeler brand to achieve 2x revenue growth in one year. Digital Marketing Trainer at eCdemy Nepal, training 400+ business owners. Ten years embedded in the Nepali market — not advising from the outside.",
+    email: "anayas@shamanyantra.com",
+    linkedin: "https://linkedin.com",
+    gradientFrom: "#14B8A6",
+    gradientTo: "#2DD4BF",
+  },
+  {
+    name: "Arhaam Moin Huq",
+    role: "Product Design & Business Development",
+    image: "https://api.dicebear.com/7.x/personas/svg?seed=ArhaamHuq&backgroundColor=fce7f3",
+    bio: "Full-ride Davis UWC Scholar at Colby College (GPA 3.99), Economics & Global Studies. Founder & CEO of SirKoi — Bangladesh's first tutor discovery platform, backed by the 1517 Fund. Led strategic market research for a VC-backed healthtech startup in South Africa. Built Project Fuego — 50,000+ leads and $5,000+ in revenue for small businesses — before the age of 18. A 1517 Fund Fellow recognised for entrepreneurial drive and the rare ability to build and ship.",
+    email: "arhaam@shamanyantra.com",
+    linkedin: "https://linkedin.com",
+    gradientFrom: "#EC4899",
+    gradientTo: "#F9A8D4",
+  },
   {
     name: "Roshan Pandey",
     role: "Software Engineer",
@@ -27,52 +68,11 @@ const TEAM = [
     gradientFrom: "#3B82F6",
     gradientTo: "#60A5FA",
   },
-  {
-    name: "Ronish Katuwal",
-    role: "Quality Assurance & Tester",
-    image: "https://api.dicebear.com/7.x/personas/svg?seed=RonishKatuwal&backgroundColor=fef3c7",
-    bio: "Here's something worth knowing about Ronish: he loves Formula 1. Not casually — genuinely. And if you know F1, you know it's really a sport about systems thinking, marginal gains, and finding exactly where something breaks before it breaks. That's also QA. He's the youngest on the team, still studying, but he understands how things fail at a level that takes most people years to develop. Quietly, he's already thinking about where technology is going — not just where it is.",
-    email: "ronish@shamanyantra.com",
-    linkedin: "https://linkedin.com",
-    gradientFrom: "#F59E0B",
-    gradientTo: "#FCD34D",
-  },
-  {
-    name: "Arhaam Huq",
-    role: "Product Design & Business Development",
-    image: "https://api.dicebear.com/7.x/personas/svg?seed=ArhaamHuq&backgroundColor=fce7f3",
-    bio: "Arhaam has been to over 100 cities. At his age, that's not a gap year — that's a curriculum. Born in Bangladesh, living in the US, and designing for people everywhere in between, he carries a worldview that most designers spend careers trying to build. His range is genuinely unusual: product instinct, business sense, design eye — each one sharp enough to be someone's whole job. He has big ambitions. The impressive part is that they're already credible.",
-    email: "arhaam@shamanyantra.com",
-    linkedin: "https://linkedin.com",
-    gradientFrom: "#EC4899",
-    gradientTo: "#F9A8D4",
-  },
-  {
-    name: "Subhashish Jung Shah",
-    role: "Head of Technology & AI",
-    image: "https://api.dicebear.com/7.x/personas/svg?seed=SubhashishShah&backgroundColor=ede9fe",
-    bio: "Subhashish has already built things that most people are still waiting to see become mainstream. Blockchain, AI voice models, systems at the frontier — he's been there, built something real, and moved on to what's next. Technology isn't what he does for work, it's what occupies his mind from the moment he wakes up. That level of obsession is rare, and it shows in the quality and ambition of what he produces. He's not following the future — he's already living in it.",
-    email: "subhashish@shamanyantra.com",
-    linkedin: "https://linkedin.com",
-    gradientFrom: "#8B5CF6",
-    gradientTo: "#A78BFA",
-  },
-  {
-    name: "Anayas Chandra Gurung",
-    role: "AI Product Analyst",
-    image: "https://api.dicebear.com/7.x/personas/svg?seed=AnayasGurung&backgroundColor=ccfbf1",
-    bio: "Ten years is enough time to watch an entire technology landscape transform — and Anayas has had a front-row seat to Nepal's. He's not just experienced; he's experienced here, in this specific market, with its specific constraints and opportunities. That's a different kind of knowledge. He's helped businesses go from stagnant to exponential, not through theory, but through the kind of clear-eyed analysis that only comes from having been wrong a few times and learned from it. When Anayas says something will work, there's weight behind it.",
-    email: "anayas@shamanyantra.com",
-    linkedin: "https://linkedin.com",
-    gradientFrom: "#14B8A6",
-    gradientTo: "#2DD4BF",
-  },
 ]
 
 // Duplicate for seamless infinite loop
 const TEAM_DOUBLED = [...TEAM, ...TEAM]
 
-const HOVER_SPRING = { type: "spring" as const, stiffness: 300, damping: 24 }
 
 /* ── Avatar SVG fallback ── */
 function AvatarPlaceholder({
@@ -116,7 +116,7 @@ function TeamCard({ member }: { member: (typeof TEAM)[0] }) {
   return (
     <motion.div
       className="shrink-0 w-64 sm:w-72 mx-2 sm:mx-3"
-      whileHover={{ scale: 1.03, y: -8, transition: HOVER_SPRING }}
+      whileHover={{ scale: 1.03, y: -8, transition: spring.gentle }}
       onHoverStart={() => setHovered(true)}
       onHoverEnd={() => setHovered(false)}
     >
@@ -165,12 +165,12 @@ function TeamCard({ member }: { member: (typeof TEAM)[0] }) {
             }}
             initial={{ opacity: 0 }}
             animate={{ opacity: hovered ? 1 : 0 }}
-            transition={{ duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{ duration: 0.25, ease: ease.ios }}
           >
             <motion.div
               initial={{ y: 16, opacity: 0 }}
               animate={{ y: hovered ? 0 : 16, opacity: hovered ? 1 : 0 }}
-              transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.05 }}
+              transition={{ duration: 0.3, ease: ease.ios, delay: 0.05 }}
             >
               <p className="text-sm text-white/90 leading-relaxed mb-4 line-clamp-8 overflow-hidden">
                 {member.bio}
@@ -228,12 +228,12 @@ export function TeamCarousel() {
     >
       {/* Section header */}
       <div className="max-w-7xl mx-auto px-6 lg:px-8 mb-12 text-center">
-        <p className="text-sm font-medium text-primary mb-3">The people behind the platform</p>
+        <p className="text-sm font-medium text-primary mb-3">The Team</p>
         <h2 className="font-serif text-3xl lg:text-5xl text-foreground leading-tight">
-          Meet the team
+          Different Backgrounds. One Shared Standard.
         </h2>
         <p className="text-muted-foreground mt-4 max-w-xl mx-auto leading-relaxed">
-          A dedicated group of builders, designers, and operators working to make Shaman Yantra the best business platform in Nepal.
+          We don&apos;t hire for credentials. We hire for the rare combination of genuine capability and the drive to do something real with it.
         </p>
       </div>
 

@@ -6,32 +6,30 @@ import { TeamCarousel } from "@/components/team-carousel"
 import { CtaSection } from "@/components/cta-section"
 import { Reveal } from "@/components/reveal"
 import { GradientOrb, DotGrid, RingDecoration } from "@/components/abstract-elements"
-import { Heart, Zap, Globe } from "lucide-react"
-
-
-const HOVER_SPRING = { type: "spring" as const, stiffness: 300, damping: 24 }
+import { Heart, Zap, Target } from "lucide-react"
+import { spring } from "@/lib/motion"
 
 const values = [
   {
-    icon: Heart,
-    title: "Customer-first, always",
-    desc: "Every product decision, every support interaction, every line of code is written with one question in mind: does this make our customers' lives easier?",
-    colorVar: "var(--destructive)",
-    bgVar: "rgba(239, 68, 68, 0.08)",
-  },
-  {
     icon: Zap,
-    title: "Move fast, fix things",
-    desc: "We ship quickly, listen to feedback, and iterate. We'd rather get something useful into your hands today than wait for perfection tomorrow.",
+    title: "Think Exponential, Act Linear",
+    desc: "Hold a ten-year vision. Execute the next ninety days. The map is exponential — but the steps are linear. Confusing the two is how businesses either stall or collapse.",
     colorVar: "#F59E0B",
     bgVar: "rgba(245, 158, 11, 0.08)",
   },
   {
-    icon: Globe,
-    title: "Built for Nepal",
-    desc: "We're not adapting a foreign product for Nepal — we're building from the ground up for Nepali businesses, payment systems, and the way Nepal works.",
+    icon: Target,
+    title: "Resource-Driven, Not Market-Driven",
+    desc: "Market-driven companies chase what already exists. Resource-driven companies build capabilities that create what doesn't exist yet. Capabilities outlast markets. Always.",
     colorVar: "var(--primary)",
     bgVar: "rgba(16, 185, 129, 0.08)",
+  },
+  {
+    icon: Heart,
+    title: "The Greatest Resource Is Human",
+    desc: "Technology scales execution. Capital scales speed. Humans supply the only thing that cannot be replicated at any price: judgment, trust, and the ability to adapt to what has never happened before.",
+    colorVar: "var(--destructive)",
+    bgVar: "rgba(239, 68, 68, 0.08)",
   },
 ]
 
@@ -61,12 +59,12 @@ export default function TeamPage() {
         <div className="max-w-5xl mx-auto relative z-10">
           <Reveal>
             <div className="text-center mb-10 sm:mb-12">
-              <p className="text-xs sm:text-sm font-medium text-primary mb-4">What drives us</p>
+              <p className="text-xs sm:text-sm font-medium text-primary mb-4">How We Think</p>
               <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl xl:text-5xl text-foreground text-balance leading-tight">
-                Our values
+                Three Laws. Everything Else Follows.
               </h2>
               <p className="text-muted-foreground mt-4 max-w-xl mx-auto leading-relaxed">
-                The principles that shape how we build, how we support, and how we grow.
+                These aren&apos;t values on a wall. They&apos;re operating constraints — the principles that shape every decision we make, every product we build, every business we sit with.
               </p>
             </div>
           </Reveal>
@@ -82,7 +80,7 @@ export default function TeamPage() {
                       y: -6,
                       boxShadow: "0 24px 48px rgba(0,0,0,0.08)",
                       borderColor: "rgba(16,185,129,0.2)",
-                      transition: HOVER_SPRING,
+                      transition: spring.snappy,
                     }}
                   >
                     <div

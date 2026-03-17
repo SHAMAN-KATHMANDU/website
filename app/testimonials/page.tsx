@@ -5,9 +5,7 @@ import { Reveal } from "@/components/reveal"
 import { CtaSection } from "@/components/cta-section"
 import { GradientOrb, DotGrid, CrossGrid, RingDecoration, AbstractLines, WaveDecoration, HexGrid, GlowLine } from "@/components/abstract-elements"
 import { Star, Quote } from "lucide-react"
-
-
-const HOVER_SPRING = { type: "spring" as const, stiffness: 300, damping: 24 }
+import { spring, stagger, ease } from "@/lib/motion"
 
 const testimonials = [
   {
@@ -19,16 +17,7 @@ const testimonials = [
     role: "Owner, Shrestha General Store",
     location: "Kathmandu",
     rating: 5,
-  },
-  {
-    initial: "S",
-    gradientFrom: "#3B82F6",
-    gradientTo: "#60A5FA",
-    quote: "Switching from three separate tools to one platform saved us time we didn't even know we were losing. Our team is finally on the same page.",
-    name: "Sunita Tamang",
-    role: "Director, Tamang Wholesale",
-    location: "Pokhara",
-    rating: 4,
+    featureHighlight: "Multi-location inventory · Low-stock alerts",
   },
   {
     initial: "P",
@@ -39,6 +28,7 @@ const testimonials = [
     role: "Founder, Karki Fashion House",
     location: "Lalitpur",
     rating: 5,
+    featureHighlight: "Quick setup · Team platform",
   },
   {
     initial: "A",
@@ -49,6 +39,7 @@ const testimonials = [
     role: "CFO, Maharjan Electronics",
     location: "Bhaktapur",
     rating: 5,
+    featureHighlight: "eSewa & IPS payments · Financial reports",
   },
   {
     initial: "K",
@@ -59,6 +50,7 @@ const testimonials = [
     role: "Operations Head, Gurung Distributors",
     location: "Kathmandu",
     rating: 5,
+    featureHighlight: "Multi-warehouse transfers · Stock tracking",
   },
   {
     initial: "B",
@@ -68,34 +60,46 @@ const testimonials = [
     name: "Bikash Rai",
     role: "Sales Manager, Rai Tech Solutions",
     location: "Biratnagar",
-    rating: 4,
+    rating: 5,
+    featureHighlight: "Sales pipeline · Automated follow-ups",
+  },
+  {
+    initial: "S",
+    gradientFrom: "#3B82F6",
+    gradientTo: "#60A5FA",
+    quote: "Switching from three separate tools to one platform saved us time we didn't even know we were losing. Our team is finally on the same page.",
+    name: "Sunita Tamang",
+    role: "Director, Tamang Wholesale",
+    location: "Pokhara",
+    rating: 5,
+    featureHighlight: "Unified platform · Team alignment",
   },
 ]
 
 const stats = [
   { value: "500+", label: "Active Businesses" },
   { value: "98%", label: "Customer Retention" },
-  { value: "4.8/5", label: "Average Rating" },
-  { value: "5 min", label: "Avg. Setup Time" },
+  { value: "4.9 / 5", label: "Average Rating" },
+  { value: "< 5 min", label: "Average Setup Time" },
 ]
 
 // Stagger containers
 const statsContainer = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.1, delayChildren: 0.05 } },
+  visible: { transition: stagger.fast },
 }
 const statsItem = {
   hidden: { opacity: 0, scale: 0.94, y: 16 },
-  visible: { opacity: 1, scale: 1, y: 0, transition: { type: "tween" as const, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] } },
+  visible: { opacity: 1, scale: 1, y: 0, transition: spring.gentle },
 }
 
 const gridContainer = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.09, delayChildren: 0.05 } },
+  visible: { transition: stagger.fast },
 }
 const gridItem = {
-  hidden: { opacity: 0, y: 24, scale: 0.97 },
-  visible: { opacity: 1, y: 0, scale: 1, transition: { type: "tween" as const, duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] } },
+  hidden: { opacity: 0, y: 16, scale: 0.97 },
+  visible: { opacity: 1, y: 0, scale: 1, transition: spring.gentle },
 }
 
 export default function TestimonialsPage() {
@@ -111,7 +115,7 @@ export default function TestimonialsPage() {
 
         <div className="relative z-10">
           <Reveal>
-            <p className="text-xs sm:text-sm font-medium text-primary mb-4">What Businesses Say</p>
+            <p className="text-xs sm:text-sm font-medium text-primary mb-4">Testimonials</p>
           </Reveal>
           <Reveal delay={1}>
             <h1 className="font-serif text-4xl sm:text-5xl lg:text-7xl text-foreground mb-6 text-balance leading-tight">
@@ -146,7 +150,7 @@ export default function TestimonialsPage() {
                 y: -4,
                 boxShadow: "0 16px 32px rgba(0,0,0,0.06)",
                 borderColor: "rgba(16,185,129,0.2)",
-                transition: HOVER_SPRING,
+                transition: spring.snappy,
               }}
               className="bg-background rounded-2xl p-5 sm:p-6 lg:p-8 text-center border border-border shadow-sm"
             >
@@ -185,7 +189,7 @@ export default function TestimonialsPage() {
                 y: -6,
                 boxShadow: "0 24px 48px rgba(0,0,0,0.08)",
                 borderColor: "rgba(16,185,129,0.15)",
-                transition: HOVER_SPRING,
+                transition: spring.snappy,
               }}
               className="bg-background rounded-2xl border border-border p-7 sm:p-8 lg:p-9 relative group h-full flex flex-col"
             >
@@ -195,7 +199,7 @@ export default function TestimonialsPage() {
                 initial={{ scale: 0, rotate: -15, opacity: 0 }}
                 whileInView={{ scale: 1, rotate: 0, opacity: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.1 }}
+                transition={{ duration: 0.4, ease: ease.ios, delay: 0.1 }}
               >
                 <Quote className="w-8 h-8 text-primary/20" />
               </motion.div>
@@ -212,6 +216,9 @@ export default function TestimonialsPage() {
               <blockquote className="text-foreground leading-relaxed mb-8 flex-1">
                 {`"${t.quote}"`}
               </blockquote>
+              {t.featureHighlight && (
+                <p className="text-xs text-primary/80 mb-4">{t.featureHighlight}</p>
+              )}
               <div className="flex items-center gap-3 pt-6 border-t border-border">
                 <div className="w-10 h-10 rounded-full shrink-0 overflow-hidden shadow-sm">
                   <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -247,7 +254,7 @@ export default function TestimonialsPage() {
           <Reveal>
             <motion.div
               className="rounded-2xl border border-border bg-background p-8 sm:p-12 shadow-sm"
-              whileHover={{ boxShadow: "0 20px 40px rgba(0,0,0,0.06)", transition: HOVER_SPRING }}
+              whileHover={{ boxShadow: "0 20px 40px rgba(0,0,0,0.06)", transition: spring.snappy }}
             >
             <div className="flex flex-col items-center gap-6 text-center">
               <div className="flex items-center gap-1" role="img" aria-label="5 out of 5 stars">

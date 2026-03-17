@@ -49,6 +49,7 @@
   --content-max: 80rem;
   --content-max-narrow: 64rem;
   --content-max-cta: 48rem;
+  --ease-ios: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 /* Dark mode token overrides — activate by adding .dark to <html> */
@@ -120,9 +121,9 @@
   --color-warm-white: var(--warm-white);
 }
 
-/* Animations */
+/* Animations — Apple-style: shorter distances, iOS easing */
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(30px); }
+  from { opacity: 0; transform: translateY(16px); }
   to { opacity: 1; transform: translateY(0); }
 }
 @keyframes fadeIn {
@@ -130,11 +131,11 @@
   to { opacity: 1; }
 }
 @keyframes slideInLeft {
-  from { opacity: 0; transform: translateX(-30px); }
+  from { opacity: 0; transform: translateX(-16px); }
   to { opacity: 1; transform: translateX(0); }
 }
 @keyframes slideInRight {
-  from { opacity: 0; transform: translateX(30px); }
+  from { opacity: 0; transform: translateX(16px); }
   to { opacity: 1; transform: translateX(0); }
 }
 @keyframes marquee {
@@ -142,7 +143,7 @@
 }
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
+  50% { transform: translateY(-5px); }
 }
 @keyframes shimmer {
   0% { background-position: -200% 0; }
@@ -170,7 +171,7 @@
   to { stroke-dashoffset: 0; }
 }
 @keyframes cardEntrance {
-  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+  from { opacity: 0; transform: translateY(14px) scale(0.97); }
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
@@ -182,6 +183,7 @@
   /* Scope outline to keyboard focus only — avoids visual noise on click */
   :focus-visible {
     @apply outline-ring/50 outline-2 outline-offset-2;
+    transition: box-shadow 0.2s var(--ease-ios), outline-color 0.2s var(--ease-ios);
   }
   html {
     scrollbar-gutter: stable;
@@ -564,7 +566,7 @@
   max-width: 600px;
   width: 100%;
   gap: 0.75rem;
-  animation: fadeUp 0.8s ease-out;
+  animation: fadeUp 0.8s var(--ease-ios);
 }
 
 /* Logo row */
@@ -572,7 +574,7 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  animation: fadeUp 0.6s ease-out;
+  animation: fadeUp 0.6s var(--ease-ios);
 }
 .cs-logo-icon {
   border-radius: 10px;
@@ -599,7 +601,7 @@
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  animation: fadeUp 0.7s ease-out 0.1s both;
+  animation: fadeUp 0.7s var(--ease-ios) 0.1s both;
 }
 .cs-badge-dot {
   width: 6px;
@@ -613,7 +615,7 @@
 .cs-truck-container {
   transform: scale(1.5);
   margin: 0.75rem 0;
-  animation: fadeUp 0.8s ease-out 0.2s both;
+  animation: fadeUp 0.8s var(--ease-ios) 0.2s both;
   filter: drop-shadow(0 0 24px rgba(16, 185, 129, 0.2));
 }
 .cs-truck-wrapper {
@@ -658,7 +660,7 @@
   line-height: 1.2;
   color: #f1f5f9;
   letter-spacing: -0.02em;
-  animation: fadeUp 0.8s ease-out 0.3s both;
+  animation: fadeUp 0.8s var(--ease-ios) 0.3s both;
 }
 .cs-heading-accent {
   background: linear-gradient(135deg, #10B981 0%, #34D399 50%, #6EE7B7 100%);
@@ -679,7 +681,7 @@
   line-height: 1.6;
   color: #94A3B8;
   max-width: 480px;
-  animation: fadeUp 0.8s ease-out 0.4s both;
+  animation: fadeUp 0.8s var(--ease-ios) 0.4s both;
 }
 
 /* Form */
@@ -689,7 +691,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  animation: fadeUp 0.8s ease-out 0.5s both;
+  animation: fadeUp 0.8s var(--ease-ios) 0.5s both;
 }
 .cs-input-group {
   display: flex;
@@ -781,12 +783,12 @@
   gap: 0.5rem;
   font-size: 0.85rem;
   color: #34D399;
-  animation: fadeUp 0.4s ease-out;
+  animation: fadeUp 0.4s var(--ease-ios);
 }
 .cs-error {
   font-size: 0.85rem;
   color: #F87171;
-  animation: fadeUp 0.4s ease-out;
+  animation: fadeUp 0.4s var(--ease-ios);
 }
 .cs-error-link {
   color: #F87171;
@@ -801,7 +803,7 @@
 .cs-social-proof {
   font-size: 0.8rem;
   color: #64748B;
-  animation: fadeUp 0.8s ease-out 0.6s both;
+  animation: fadeUp 0.8s var(--ease-ios) 0.6s both;
 }
 .cs-highlight {
   color: #34D399;

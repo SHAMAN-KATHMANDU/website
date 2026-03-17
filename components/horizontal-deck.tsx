@@ -19,16 +19,11 @@ import {
 } from "framer-motion"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { useHorizontalScroll } from "@/hooks/use-horizontal-scroll"
+import { spring, ease } from "@/lib/motion"
 
 interface HorizontalDeckProps {
   children: React.ReactNode
 }
-
-// Softer spring: lower stiffness = smoother, less mechanical progress bar
-const SPRING_CONFIG = { stiffness: 120, damping: 20, restDelta: 0.001 }
-
-// Hover spring for chevrons: snappy but not bouncy
-const HOVER_SPRING = { type: "spring" as const, stiffness: 300, damping: 28 }
 
 export function HorizontalDeck({ children }: HorizontalDeckProps) {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -76,7 +71,11 @@ export function HorizontalDeck({ children }: HorizontalDeckProps) {
 
   // Progress bar: scaleX 0→1 across all cards, spring-smoothed
   const progressMV = useMotionValue(0)
-  const progressSpring = useSpring(progressMV, SPRING_CONFIG)
+  const progressSpring = useSpring(progressMV, {
+    stiffness: 120,
+    damping: 20,
+    restDelta: 0.001,
+  })
 
   useEffect(() => {
     progressMV.set(cardCount > 1 ? activeIndex / (cardCount - 1) : 1)
@@ -164,14 +163,18 @@ export function HorizontalDeck({ children }: HorizontalDeckProps) {
 
   useHorizontalScroll({ containerRef, cardCount, activeIndex, scrollToCard, prefersReducedMotion: reduceMotion })
 
-  // Inject isActive + ref into each HorizontalCard child
+  // Inject isActive + ref into each HorizontalCard child (ref callback runs on mount/unmount, not render)
+  /* eslint-disable react-hooks/refs -- ref callback populates cardRefs on mount; valid cloneElement pattern */
   const enrichedCards = cards.map((child, i) => {
     if (!isValidElement(child)) return child
     return cloneElement(child as React.ReactElement<Record<string, unknown>>, {
       isActive: i === activeIndex,
-      ref: (el: HTMLElement | null) => { cardRefs.current[i] = el },
+      ref: (el: HTMLElement | null) => {
+        cardRefs.current[i] = el
+      },
     })
   })
+  /* eslint-enable react-hooks/refs */
 
   return (
     <div className="horizontal-deck-wrapper">
@@ -204,8 +207,8 @@ export function HorizontalDeck({ children }: HorizontalDeckProps) {
             initial={{ opacity: 0, x: -16 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -16 }}
-            transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-            whileHover={{ scale: 1.12, x: -3, transition: HOVER_SPRING }}
+            transition={{ duration: 0.3, ease: ease.ios }}
+            whileHover={{ scale: 1.12, x: -3, transition: spring.snappy }}
             whileTap={{ scale: 0.92 }}
             onClick={() => scrollToCard(activeIndex - 1)}
             aria-label="Previous section"
@@ -224,8 +227,8 @@ export function HorizontalDeck({ children }: HorizontalDeckProps) {
             initial={{ opacity: 0, x: 16 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 16 }}
-            transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-            whileHover={{ scale: 1.12, x: 3, transition: HOVER_SPRING }}
+            transition={{ duration: 0.3, ease: ease.ios }}
+            whileHover={{ scale: 1.12, x: 3, transition: spring.snappy }}
             whileTap={{ scale: 0.92 }}
             onClick={() => scrollToCard(activeIndex + 1)}
             aria-label="Next section"

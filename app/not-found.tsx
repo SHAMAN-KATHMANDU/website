@@ -34,10 +34,10 @@ export default function NotFound() {
             Go home
           </Link>
           <Link
-            href="/features"
+            href="/products"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground text-sm font-medium hover:bg-muted transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
-            Explore features
+            Explore Products
             <ArrowRight className="w-4 h-4" aria-hidden="true" />
           </Link>
         </div>
@@ -47,9 +47,9 @@ export default function NotFound() {
           <p className="text-xs text-muted-foreground mb-4">Quick links</p>
           <div className="flex flex-wrap items-center justify-center gap-3">
             {[
+              { href: "/products", label: "Products" },
               { href: "/pricing", label: "Pricing" },
-              { href: "/testimonials", label: "Testimonials" },
-              { href: "/team", label: "Team" },
+              { href: "/about", label: "About" },
               { href: "/contact", label: "Contact" },
             ].map((link) => (
               <Link

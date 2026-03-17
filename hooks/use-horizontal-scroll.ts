@@ -66,6 +66,7 @@ export function useHorizontalScroll({
     const DELTA_THRESHOLD = 60
 
     const onWheel = (e: WheelEvent) => {
+      if (prefersReducedMotion) return
       if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return
       if (isInsideVerticalScroller(e.target, e.deltaY)) return
 
@@ -96,7 +97,7 @@ export function useHorizontalScroll({
       container.removeEventListener("wheel", onWheel)
       if (rafId) cancelAnimationFrame(rafId)
     }
-  }, [containerRef, activeIndex, cardCount, scrollToCard, isInsideVerticalScroller])
+  }, [containerRef, activeIndex, cardCount, scrollToCard, isInsideVerticalScroller, prefersReducedMotion])
 
   // Keyboard navigation
   useEffect(() => {

@@ -1,12 +1,14 @@
 const marqueeItems = [
   "Inventory Management",
   "CRM & Sales Pipeline",
-  "Team Messaging",
   "Real-Time Analytics",
   "Multi-Warehouse Support",
   "Mobile-First Design",
   "Supplier Ordering",
   "Barcode Scanning",
+  "Custom Workflows",
+  "Financial Reports",
+  "Automated Follow-Ups",
 ]
 
 export function Marquee() {

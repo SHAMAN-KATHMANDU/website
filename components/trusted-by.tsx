@@ -2,8 +2,7 @@
 
 import { motion } from "framer-motion"
 import { Reveal } from "./reveal"
-
-const HOVER_SPRING = { type: "spring" as const, stiffness: 300, damping: 24 }
+import { spring, stagger, ease } from "@/lib/motion"
 
 const logos = [
   { name: "Daraz Nepal", abbr: "DZ", color: "#FF6B35", bg: "#FFF3EE" },
@@ -22,20 +21,20 @@ const stats = [
 
 const logoContainer = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.05, delayChildren: 0.05 } },
+  visible: { transition: stagger.fast },
 }
 const logoItem = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] as const } },
+  visible: { opacity: 1, transition: { duration: 0.35, ease: ease.ios } },
 }
 
 const statsContainer = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.06, delayChildren: 0.05 } },
+  visible: { transition: stagger.fast },
 }
 const statsItem = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] as const } },
+  visible: { opacity: 1, transition: { duration: 0.35, ease: ease.ios } },
 }
 
 const platformStats = [
@@ -87,7 +86,7 @@ export function TrustedBy() {
               whileHover={{
                 scale: 1.06,
                 filter: "grayscale(0%) brightness(1)",
-                transition: HOVER_SPRING,
+                transition: spring.snappy,
               }}
               className="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl border border-border bg-background cursor-default select-none"
               style={{ filter: "grayscale(30%) brightness(0.9)", transition: "filter 0.3s ease" }}
@@ -118,7 +117,7 @@ export function TrustedBy() {
             <motion.div
               key={s.label}
               variants={statsItem}
-              whileHover={{ scale: 1.04, transition: HOVER_SPRING }}
+              whileHover={{ scale: 1.04, transition: spring.snappy }}
               className="flex items-center gap-2 bg-secondary border border-border rounded-full px-3 sm:px-5 py-1.5 sm:py-2.5"
             >
               <span className="text-xs sm:text-sm font-semibold text-foreground">{s.value}</span>

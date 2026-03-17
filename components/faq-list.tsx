@@ -4,35 +4,32 @@ import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronDown } from "lucide-react"
 import { Reveal } from "./reveal"
+import { spring } from "@/lib/motion"
 
 export const faqs = [
   {
-    q: "What happens after the 14-day free trial?",
-    a: "Your trial includes full access to all features of your chosen plan. At the end of 14 days, you can choose to subscribe or your account will be paused — your data is never deleted. You can reactivate at any time.",
+    q: "Can I switch plans later?",
+    a: "Yes. Upgrade or downgrade anytime. Changes take effect at the start of your next billing cycle.",
   },
   {
-    q: "Can I change my plan later?",
-    a: "Yes, you can upgrade or downgrade your plan at any time from your account settings. Upgrades take effect immediately; downgrades apply at the next billing cycle.",
-  },
-  {
-    q: "Is my business data safe?",
-    a: "Absolutely. All data is encrypted in transit (TLS 1.3) and at rest (AES-256). We maintain regular backups and our infrastructure is hosted on enterprise-grade servers with 99.9% uptime SLA on Business and Enterprise plans.",
-  },
-  {
-    q: "What payment methods do you accept?",
-    a: "We accept eSewa, IME Pay, and bank transfer (IPS). For Enterprise plans, we also support custom invoicing and purchase orders.",
-  },
-  {
-    q: "Can I cancel anytime?",
-    a: "Yes, there are no lock-in contracts on Starter, Pro, or Business plans. You can cancel at any time and your subscription will remain active until the end of the current billing period.",
-  },
-  {
-    q: "Do you offer discounts for NGOs or educational institutions?",
-    a: "Yes — we offer special pricing for registered NGOs, schools, and government institutions in Nepal. Contact us at info@shamanyantra.com with your registration details.",
+    q: "What happens after my 14-day trial?",
+    a: "You'll be asked to choose a plan. If you don't, your account pauses — your data is kept safe for 30 days.",
   },
   {
     q: "Is there a setup fee?",
-    a: "No setup fees on any plan. Business plans include a complimentary 1-hour onboarding session, and Enterprise plans include a full-day onboarding with your team.",
+    a: "No setup fee on Starter, Pro, or Business. Enterprise includes full-day onboarding at no extra cost.",
+  },
+  {
+    q: "Can I add users or locations beyond my plan?",
+    a: "Yes — via add-ons. NPR 500/user/month and NPR 1,000/location/month on top of your plan.",
+  },
+  {
+    q: "What payment methods do you accept?",
+    a: "eSewa, IPS, and bank transfer. Annual billing available with a discount — contact us for details.",
+  },
+  {
+    q: "Is my data safe if I cancel?",
+    a: "Yes. You can export all your data before cancellation. We retain it for 30 days after cancellation as a safety window.",
   },
 ]
 
@@ -43,10 +40,12 @@ export function FaqList() {
       {faqs.map((faq, i) => (
         <Reveal key={i} delay={i % 4}>
           <div className="border border-border rounded-xl overflow-hidden bg-background">
-            <button
+            <motion.button
               className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset"
               onClick={() => setOpen(open === i ? null : i)}
               aria-expanded={open === i}
+              whileTap={{ scale: 0.98 }}
+              transition={spring.snappy}
             >
               <span className="text-sm font-medium text-foreground">{faq.q}</span>
               <motion.span
@@ -56,14 +55,14 @@ export function FaqList() {
               >
                 <ChevronDown className="w-4 h-4" aria-hidden="true" />
               </motion.span>
-            </button>
+            </motion.button>
             <AnimatePresence initial={false}>
               {open === i && (
                 <motion.div
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: "auto", opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  transition={{ ...spring.gentle }}
                   className="overflow-hidden"
                 >
                   <p className="px-6 pb-5 text-sm text-muted-foreground leading-relaxed border-t border-border pt-4">

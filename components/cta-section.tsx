@@ -4,16 +4,15 @@ import Link from "next/link"
 import { motion } from "framer-motion"
 import { ArrowRight, Zap } from "lucide-react"
 import { GradientOrb, DotGrid, RingDecoration } from "./abstract-elements"
-
-const HOVER_SPRING = { type: "spring" as const, stiffness: 300, damping: 24 }
+import { spring, stagger, ease } from "@/lib/motion"
 
 const container = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.1, delayChildren: 0.05 } },
+  visible: { transition: stagger.fast },
 }
 const item = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { type: "tween" as const, duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] } },
+  hidden: { opacity: 0, y: 16 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: ease.ios } },
 }
 
 export function CtaSection() {
@@ -42,40 +41,39 @@ export function CtaSection() {
           variants={item}
           className="font-serif text-2xl sm:text-3xl lg:text-4xl xl:text-5xl text-foreground mb-4 sm:mb-6 text-balance leading-tight"
         >
-          Ready to transform your business?
+          Your business, simplified.
         </motion.h2>
 
         <motion.p
           variants={item}
           className="text-muted-foreground text-sm sm:text-base lg:text-lg leading-relaxed mb-6 sm:mb-8 max-w-xl mx-auto"
         >
-          Join 500+ Nepali businesses already running smarter with Shaman Yantra.
-          Set up in under 5 minutes.
+          Join the growing community of Nepali businesses replacing disconnected tools with one unified platform.
         </motion.p>
 
         <motion.div variants={item} className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
           <motion.div
-            whileHover={{ scale: 1.04, y: -2, transition: HOVER_SPRING }}
+            whileHover={{ scale: 1.04, y: -2, transition: spring.snappy }}
             whileTap={{ scale: 0.97 }}
           >
             <Link
               href="/pricing"
-              className="inline-flex items-center gap-2 sm:gap-2.5 px-6 sm:px-8 py-3 sm:py-4 rounded-xl bg-primary text-primary-foreground text-sm font-semibold shadow-lg shadow-primary/20 hover:bg-accent transition-colors duration-200"
+              className="group inline-flex items-center gap-2 sm:gap-2.5 px-6 sm:px-8 py-3 sm:py-4 rounded-xl bg-primary text-primary-foreground text-sm font-semibold shadow-lg shadow-primary/20 hover:bg-accent transition-colors duration-200"
             >
-              Start Free Trial
-              <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              Try Free for 14 Days
+              <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
             </Link>
           </motion.div>
 
           <motion.div
-            whileHover={{ scale: 1.03, y: -1, transition: HOVER_SPRING }}
+            whileHover={{ scale: 1.03, y: -1, transition: spring.snappy }}
             whileTap={{ scale: 0.97 }}
           >
             <Link
-              href="/features"
+              href="/contact"
               className="inline-flex items-center gap-2 sm:gap-2.5 px-6 sm:px-8 py-3 sm:py-4 rounded-xl border border-border text-foreground text-sm font-medium hover:bg-muted hover:border-foreground/20 transition-all duration-200"
             >
-              Explore Features
+              Schedule a Demo
             </Link>
           </motion.div>
         </motion.div>
@@ -90,7 +88,7 @@ export function CtaSection() {
         </motion.div>
 
         <motion.p variants={item} className="mt-4 sm:mt-5 text-xs text-muted-foreground">
-          No setup fees · Cancel anytime · Nepal-based support
+          No credit card required · Cancel anytime
         </motion.p>
       </motion.div>
     </section>

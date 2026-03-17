@@ -1,6 +1,8 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import Image from "next/image"
+import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion"
 
 /* ── Gradient Orb ── soft radial glow ── */
 export function GradientOrb({
@@ -299,26 +301,23 @@ export function DemoImage({
   priority?: boolean
 }) {
   const [imgFailed, setImgFailed] = useState(false)
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
-
-  useEffect(() => {
-    setPrefersReducedMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches)
-  }, [])
+  const prefersReducedMotion = usePrefersReducedMotion()
 
   return (
     <div
-      className={`relative rounded-2xl overflow-hidden shadow-2xl border border-border/60 ${className}`}
+      className={`relative aspect-video rounded-2xl overflow-hidden shadow-2xl border border-border/60 ${className}`}
       style={
         prefersReducedMotion ? undefined : { animation: "float 6s ease-in-out infinite" }
       }
     >
       {!imgFailed ? (
-        <img
+        <Image
           src={src}
           alt={alt}
-          className="w-full h-auto object-cover"
-          loading={priority ? "eager" : "lazy"}
-          fetchPriority={priority ? "high" : undefined}
+          fill
+          className="object-cover"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+          priority={priority}
           onError={() => setImgFailed(true)}
         />
       ) : (

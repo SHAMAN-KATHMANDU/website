@@ -1,10 +1,12 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useSyncExternalStore } from "react"
 import Link from "next/link"
+import { motion } from "framer-motion"
 import { ArrowRight, TrendingUp, ShoppingCart } from "lucide-react"
 import { GradientOrb, DotGrid, DemoImage, MeshGrid } from "./abstract-elements"
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion"
+import { spring } from "@/lib/motion"
 
 function FloatingCard({
   children,
@@ -31,10 +33,13 @@ function FloatingCard({
   )
 }
 
+function emptySubscribe() {
+  return () => {}
+}
+
 export function Hero() {
-  const [mounted, setMounted] = useState(false)
+  const mounted = useSyncExternalStore(emptySubscribe, () => true, () => false)
   const prefersReducedMotion = usePrefersReducedMotion()
-  useEffect(() => { setMounted(true) }, [])
 
   return (
     <section className="relative h-full min-h-0 flex flex-col justify-center overflow-hidden bg-background bg-grid isolate">
@@ -84,43 +89,70 @@ export function Hero() {
                 transition: "all 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.3s",
               }}
             >
-              Shaman Yantra unifies inventory, customer relationships, and team
-              communication into a single platform — built from the ground up
-              for Nepali businesses.
+              Shaman Yantra unifies inventory, customer relationships, and business
+              analytics into a single platform — built from the ground up for
+              Nepali businesses.
             </p>
 
             <div
-              className="flex gap-4 flex-wrap mb-8"
+              className="flex gap-4 flex-wrap mb-6"
               style={{
                 opacity: mounted ? 1 : 0,
                 transform: mounted ? "translateY(0)" : "translateY(20px)",
                 transition: "all 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.4s",
               }}
             >
-              <Link
-                href="/pricing"
-                className="inline-flex items-center gap-2 text-base font-medium px-7 py-3.5 rounded-lg bg-primary text-primary-foreground hover:bg-accent transition-all duration-200 shadow-sm hover:shadow-lg hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-              >
-                View Plans &amp; Pricing
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link
-                href="/features"
-                className="inline-flex items-center gap-2 text-base font-medium px-7 py-3.5 rounded-lg border border-border text-foreground hover:bg-muted transition-all duration-200"
-              >
-                Explore Features
-              </Link>
+              <motion.div whileHover={{ scale: 1.03, y: -1 }} whileTap={{ scale: 0.97 }} transition={spring.snappy}>
+                <Link
+                  href="/pricing"
+                  className="group inline-flex items-center gap-2 text-base font-medium px-7 py-3.5 rounded-lg bg-primary text-primary-foreground hover:bg-accent transition-all duration-200 shadow-sm hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                >
+                  Try Free for 14 Days
+                  <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+                </Link>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.03, y: -1 }} whileTap={{ scale: 0.97 }} transition={spring.snappy}>
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-2 text-base font-medium px-7 py-3.5 rounded-lg border border-border text-foreground hover:bg-muted transition-all duration-200"
+                >
+                  Schedule a Demo
+                </Link>
+              </motion.div>
             </div>
 
             <p
-              className="text-sm text-muted-foreground"
+              className="text-sm text-muted-foreground mb-8"
               style={{
                 opacity: mounted ? 1 : 0,
                 transition: "opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.5s",
               }}
             >
-              No credit card required
+              No credit card required · Cancel anytime
             </p>
+
+            {/* Stats bar — 3 badge pills */}
+            <div
+              className="flex flex-wrap gap-3"
+              style={{
+                opacity: mounted ? 1 : 0,
+                transform: mounted ? "translateY(0)" : "translateY(20px)",
+                transition: "all 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.5s",
+              }}
+            >
+              <div className="inline-flex items-center gap-2 bg-secondary border border-border rounded-full px-4 py-2">
+                <span className="text-sm font-semibold text-foreground">3-in-1</span>
+                <span className="text-xs text-muted-foreground">Unified Platform</span>
+              </div>
+              <div className="inline-flex items-center gap-2 bg-secondary border border-border rounded-full px-4 py-2">
+                <span className="text-sm font-semibold text-foreground">5 min</span>
+                <span className="text-xs text-muted-foreground">Setup Time</span>
+              </div>
+              <div className="inline-flex items-center gap-2 bg-secondary border border-border rounded-full px-4 py-2">
+                <span className="text-sm font-semibold text-foreground">14 Days</span>
+                <span className="text-xs text-muted-foreground">Free Trial</span>
+              </div>
+            </div>
           </div>
 
           {/* Mobile social proof strip — 2 pills to reduce clutter */}

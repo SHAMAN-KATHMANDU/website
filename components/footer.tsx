@@ -6,15 +6,16 @@ import { LogoMark } from "./logo"
 
 const footerLinks = {
   Product: [
-    { href: "/features", label: "Features" },
+    { href: "/products", label: "Products" },
     { href: "/pricing", label: "Pricing" },
+    { href: "/enterprise", label: "Enterprise" },
     { href: "/testimonials", label: "Testimonials" },
-    { href: "/team", label: "Team" },
   ],
   Company: [
-    { href: "/team", label: "About Us" },
+    { href: "/about", label: "About" },
+    { href: "/team", label: "Team" },
+    { href: "/faq", label: "FAQ" },
     { href: "/contact", label: "Contact" },
-    { href: "mailto:careers@shamanyantra.com", label: "Careers" },
   ],
   Legal: [
     { href: "/privacy-policy", label: "Privacy Policy" },
@@ -24,10 +25,10 @@ const footerLinks = {
 }
 
 const compactLinks = [
-  { href: "/features", label: "Features" },
+  { href: "/products", label: "Products" },
   { href: "/pricing", label: "Pricing" },
+  { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
-  { href: "/privacy-policy", label: "Privacy" },
 ]
 
 export function Footer({ compact = false }: { compact?: boolean }) {
@@ -49,7 +50,7 @@ export function Footer({ compact = false }: { compact?: boolean }) {
       <footer className="bg-navy text-white border-t border-white/10 shrink-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <Link href="/" className="flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg">
+            <Link href="/" className="flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg hover:opacity-80 transition-opacity duration-200">
               <LogoMark size={22} variant="light" />
               <span className="text-sm font-semibold tracking-tight text-white">
                 Shaman<span className="text-emerald-light font-bold">Yantra</span>
@@ -60,7 +61,7 @@ export function Footer({ compact = false }: { compact?: boolean }) {
                 <Link
                   key={l.href}
                   href={l.href}
-                  className="text-xs sm:text-sm text-white/50 hover:text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
+                  className="relative inline-block text-xs sm:text-sm text-white/50 hover:text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-white after:transition-[width] after:duration-200 hover:after:w-full"
                 >
                   {l.label}
                 </Link>
@@ -72,7 +73,8 @@ export function Footer({ compact = false }: { compact?: boolean }) {
               </span>
               <button
                 onClick={handleScrollTop}
-                className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-white/10 flex items-center justify-center hover:border-white/30 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-white/10 flex items-center justify-center hover:border-white/30 hover:scale-110 active:scale-95 transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                style={{ transitionTimingFunction: "var(--ease-ios)" }}
                 aria-label="Scroll to top"
               >
                 <svg width="12" height="12" viewBox="0 0 14 14" fill="none" className="text-white/50 sm:w-3.5 sm:h-3.5" aria-hidden="true">
@@ -92,7 +94,7 @@ export function Footer({ compact = false }: { compact?: boolean }) {
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 pb-12 border-b border-white/10">
           {/* Brand */}
           <div className="lg:max-w-xs shrink-0">
-            <Link href="/" className="flex items-center gap-3 mb-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg">
+            <Link href="/" className="flex items-center gap-3 mb-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg hover:opacity-80 transition-opacity duration-200">
               <LogoMark size={28} variant="light" />
               <span className="text-base font-semibold tracking-tight text-white">
                 Shaman<span className="text-emerald-light font-bold">Yantra</span>
@@ -103,9 +105,9 @@ export function Footer({ compact = false }: { compact?: boolean }) {
             </p>
             <div className="text-sm text-white/50 space-y-1">
               <p>
-                <a
+                  <a
                   href="mailto:info@shamanyantra.com"
-                  className="hover:text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
+                  className="relative hover:text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-white after:transition-[width] after:duration-200 hover:after:w-full"
                 >
                   info@shamanyantra.com
                 </a>
@@ -124,7 +126,7 @@ export function Footer({ compact = false }: { compact?: boolean }) {
                     <li key={l.label}>
                       <Link
                         href={l.href}
-                        className="text-sm text-white/50 hover:text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
+                        className="relative inline-block text-sm text-white/50 hover:text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-white after:transition-[width] after:duration-200 hover:after:w-full"
                       >
                         {l.label}
                       </Link>
@@ -143,7 +145,8 @@ export function Footer({ compact = false }: { compact?: boolean }) {
           </span>
           <button
             onClick={handleScrollTop}
-            className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:border-white/30 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:border-white/30 hover:scale-110 active:scale-95 transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            style={{ transitionTimingFunction: "var(--ease-ios)" }}
             aria-label="Scroll to top"
           >
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-white/50" aria-hidden="true">

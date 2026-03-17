@@ -8,8 +8,7 @@ import { CtaSection } from "@/components/cta-section"
 import { GradientOrb, DotGrid, RingDecoration } from "@/components/abstract-elements"
 import { Check, ArrowLeft } from "lucide-react"
 import { mainFeatures } from "@/lib/features-data"
-
-const HOVER_SPRING = { type: "spring" as const, stiffness: 300, damping: 24 }
+import { spring } from "@/lib/motion"
 
 export function FeatureDetailClient({ featureId }: { featureId: string }) {
   const feature = mainFeatures.find((f) => f.id === featureId)
@@ -27,11 +26,11 @@ export function FeatureDetailClient({ featureId }: { featureId: string }) {
 
         <div className="max-w-4xl mx-auto relative z-10">
           <Link
-            href="/features"
+            href="/products"
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-8"
           >
             <ArrowLeft className="w-4 h-4" />
-            Back to Features
+            Back to Products
           </Link>
 
           <Reveal>
@@ -73,7 +72,7 @@ export function FeatureDetailClient({ featureId }: { featureId: string }) {
           <Reveal>
             <motion.div
               className="rounded-2xl overflow-hidden border border-border shadow-lg bg-muted"
-              whileHover={{ scale: 1.01, transition: HOVER_SPRING }}
+              whileHover={{ scale: 1.01, transition: spring.snappy }}
             >
               <div className="relative aspect-video">
                 <Image

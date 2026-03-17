@@ -6,17 +6,17 @@ import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { LogoMark } from "./logo"
 import { Menu, X, ArrowRight } from "lucide-react"
+import { spring } from "@/lib/motion"
 
 const navLinks = [
   { href: "/", label: "Home" },
-  { href: "/features", label: "Features" },
+  { href: "/products", label: "Products" },
   { href: "/pricing", label: "Pricing" },
+  { href: "/enterprise", label: "Enterprise" },
+  { href: "/about", label: "About" },
   { href: "/testimonials", label: "Testimonials" },
-  { href: "/team", label: "Team" },
-  { href: "/faq", label: "FAQ" },
+  { href: "/contact", label: "Contact" },
 ]
-
-const HOVER_SPRING = { type: "spring" as const, stiffness: 350, damping: 28 }
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -30,7 +30,7 @@ export function Navbar() {
   }, [])
 
   useEffect(() => {
-    setMobileOpen(false)
+    queueMicrotask(() => setMobileOpen(false))
   }, [pathname])
 
   useEffect(() => {
@@ -58,7 +58,7 @@ export function Navbar() {
         {/* Logo — spring hover scale */}
         <Link href="/" className="flex items-center gap-3 group" aria-label="Shaman Yantra Home">
           <motion.div
-            whileHover={{ scale: 1.06, transition: HOVER_SPRING }}
+            whileHover={{ scale: 1.06, transition: spring.snappy }}
             style={{ willChange: "transform" }}
           >
             <LogoMark />
@@ -84,7 +84,7 @@ export function Navbar() {
                   <motion.span
                     layoutId="nav-active-bg"
                     className="absolute inset-0 rounded-lg bg-secondary"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    transition={spring.snappy}
                     style={{ zIndex: -1 }}
                   />
                 )}
@@ -108,7 +108,7 @@ export function Navbar() {
             href="https://app.shamanyantra.com"
             target="_blank"
             rel="noopener noreferrer"
-            whileHover={{ scale: 1.03, y: -1, transition: HOVER_SPRING }}
+            whileHover={{ scale: 1.03, y: -1, transition: spring.snappy }}
             whileTap={{ scale: 0.97 }}
             style={{ willChange: "transform" }}
             className="inline-flex items-center gap-2 text-sm font-medium px-5 py-2.5 rounded-lg border border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
@@ -116,19 +116,7 @@ export function Navbar() {
             Go to App
           </motion.a>
           <motion.div
-            whileHover={{ scale: 1.03, y: -1, transition: HOVER_SPRING }}
-            whileTap={{ scale: 0.97 }}
-            style={{ willChange: "transform" }}
-          >
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 text-sm font-medium px-5 py-2.5 rounded-lg border border-border text-foreground hover:bg-muted transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-            >
-              Contact
-            </Link>
-          </motion.div>
-          <motion.div
-            whileHover={{ scale: 1.03, y: -1, transition: HOVER_SPRING }}
+            whileHover={{ scale: 1.03, y: -1, transition: spring.snappy }}
             whileTap={{ scale: 0.97 }}
             style={{ willChange: "transform" }}
           >
@@ -158,7 +146,7 @@ export function Navbar() {
                 initial={{ rotate: -45, opacity: 0 }}
                 animate={{ rotate: 0, opacity: 1 }}
                 exit={{ rotate: 45, opacity: 0 }}
-                transition={{ duration: 0.18 }}
+                transition={{ duration: 0.15, ease: [0.2, 0.8, 0.2, 1] }}
               >
                 <X size={20} />
               </motion.span>
@@ -168,7 +156,7 @@ export function Navbar() {
                 initial={{ rotate: 45, opacity: 0 }}
                 animate={{ rotate: 0, opacity: 1 }}
                 exit={{ rotate: -45, opacity: 0 }}
-                transition={{ duration: 0.18 }}
+                transition={{ duration: 0.15, ease: [0.2, 0.8, 0.2, 1] }}
               >
                 <Menu size={20} />
               </motion.span>
